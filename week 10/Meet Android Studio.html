@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>
+<div>
+<p>Android Studio is the official Integrated Development Environment (IDE) for Android&nbsp;app development, based&nbsp;on&nbsp;<a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">IntelliJ IDEA</a></p>
+<p>Android Studio offers many features that&nbsp;enhance your productivity when building Android apps, such as:</p>
+<ul>
+<li>A flexible Gradle-based build system</li>
+<li>A fast and feature-rich emulator</li>
+<li>A unified environment where you can develop for all Android devices</li>
+<li>Instant Run to push changes to your running app without building a new APK</li>
+<li>Code templates and GitHub integration to help build common app features and import sample code</li>
+<li>Extensive testing tools and frameworks</li>
+<li>Lint tools to catch performance, usability, version compatibility, and other problems</li>
+<li>C++ and NDK support</li>
+</ul>
+<h3>The User Interface</h3>
+<p>The Android Studio main window is made up of several logical areas.</p>
+<p><img src="PastedImage_mlzakhoay8mdre8r200xua55j7fpmnrq0013654758.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<h4>1 - Project Tool Window</h4>
+<p>Each project in Android Studio contains one or more modules with source code files and resources files. Types of modules include:</p>
+<ul>
+<li>Android app modules</li>
+<li>Library modules</li>
+<li>Google App Engine modules</li>
+</ul>
+<p>By default, Android Studio displays your project files in the Android project view&nbsp;(see above screenshot). This view is organized by modules to provide quick access to your project's key source files.</p>
+<p>All the build files are visible at the top level under&nbsp;<strong>Gradle Scripts</strong>&nbsp;and each app module contains the following folders:</p>
+<ul>
+<li><strong>manifests</strong>: Contains the&nbsp;<code>AndroidManifest.xml</code>&nbsp;file.</li>
+<li><strong>java</strong>: Contains the Java source code files, including JUnit test code.</li>
+<li><strong>res</strong>: Contains all non-code resources, such as XML layouts, UI strings, and bitmap images.</li>
+</ul>
+<p>The Android project structure on disk differs from this flattened representation. To see the actual file structure of the project, select&nbsp;<strong>Project</strong>from the&nbsp;<strong>Project</strong>&nbsp;dropdown (it's showing as&nbsp;<strong>Android</strong>).</p>
+<p>For more information, see&nbsp;<a href="https://developer.android.com/studio/projects/index.html" target="_blank" rel="noopener">Managing Projects</a></p>
+<h4>2 - Editor Window</h4>
+<p>The editor window is where you create and modify code. Depending on the current file type, this window can change. For example, when view a layout file (activity_main.xml in the screenshot), the editor window displays the layout editor&nbsp;and offers the option to view the corresponding XML file.</p>
+<p>From the screenshot, notice the API is set to 23, and I'm currently in Design view (WYSIWYG).</p>
+<h4>3 - Component Tree</h4>
+<p>Displays how the Android Views and ViewGroups are organized.</p>
+<p>From the screenshot, the app is using a RelativeLayout. The layout has one child View: a TextView with the literal String "Hello World!".</p>
+<h4>4 - Properties</h4>
+<p>Displays the properties for the selected Android View or ViewGroup.</p>
+<p>From the screenshot, the properties for the RelativeLayout (selected in the Component Tree) are being displayed. Notice the width and height of the RelativeLayout match the parent. From the Component Tree, the Device Screen is the parent.</p>
+<h4>5 - Android Monitor</h4>
+<p>Android Monitor helps you to profile the performance of your apps so you can optimize, debug, and improve them. It lets you monitor the following aspects of your apps from a hardware device or the Android Emulator:</p>
+<ul>
+<li>Log messages, either system- or user-defined</li>
+<li>Memory, CPU, and GPU usage</li>
+<li>Network traffic&nbsp;(hardware device only)</li>
+</ul>
+<p>Android Monitor provides various tools that provide real-time information about your app. It lets you capture data as your app runs and stores in a file that you can analyze in various viewers. You can also capture screenshots and videos of your app as it runs.</p>
+<p>For more information, see&nbsp;<a href="https://developer.android.com/studio/profile/android-monitor.html" target="_blank" rel="noopener">Android Monitor Overview</a></p>
+<h3>References</h3>
+<ol>
+<li><a href="https://developer.android.com/studio/intro/index.html" target="_blank" rel="noopener">Meet Android Studio</a></li>
+</ol>
+</div>
+</div>
+</body>
+</html>

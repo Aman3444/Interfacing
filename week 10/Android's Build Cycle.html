@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>Android's Build Cycle</div>
+<div>
+<p>This document describes what happens when you build an&nbsp;app within Android Studio, and how you can configure your app's build.</p>
+<h3>Developer Workflow Basics</h3>
+<p>Developing apps for Android is basically the same as other app platforms, but there are some differences.</p>
+<p>A typical workflow involves the following steps:</p>
+<ol>
+<li>Set up your workspace</li>
+<li>Write your app</li>
+<li>Build and run</li>
+<li>Debug, profile, and test</li>
+<li>Publish</li>
+</ol>
+<p>Android Studio, the official IDE for Android development, is a specialized tool that helps you with app development.</p>
+<p>We've already seen how to set up your workspace&nbsp;for Android development, and how to create projects using Android Studio.</p>
+<p>As well, we've seen how Android Studio can help write your apps. We've used Android Studio to design User Interfaces (UI), featuring its WYSIWYG Design pane, create and manages resources, and write Java code.</p>
+<p>The rest of this document considers the Build and run phase.</p>
+<p>Regarding the remaining phases, we've seen how to log debugging messages to Android's logcat. There will be a future lab activity on JUnit testing. The final&nbsp;hybrid activity of the course discusses how to prepare your app for publishing, and shows you&nbsp;how to version your app &amp; sign it with a key.</p>
+<h3>Build and run</h3>
+<p>During the build process, Android Studio builds your project into an&nbsp;<strong>A</strong>ndroid&nbsp;<strong>P</strong>ac<strong>K</strong>age (APK) file that you can install on the emulator or physical device.</p>
+<h4>The Build Process</h4>
+<p>The build process to make the APK is shown in the following diagram:</p>
+<p><img src="PastedImage_zznu7wemp6466l1bqfkncjw33vk2h3te0014293928.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<p>The steps:</p>
+<ol>
+<li>The compilers convert your source code into DEX (<strong>D</strong>alvik&nbsp;<strong>Ex</strong>ecutabe) files. One&nbsp;such&nbsp;compiler is javac (<strong>java</strong>&nbsp;<strong>c</strong>ompiler). The java compiler is responsible for compiling Java sources files (*.java) into Java class files (.class), and the Java class files contain the bytecodes that will run on any Android device. Other compilers will be responsible for compiling everthing else into resources.</li>
+<li>The APK Packagers combines the DEX files and compiled resources into a single APK.&nbsp;<strong>Note</strong>: your APK must be&nbsp;<em>signed</em>&nbsp;before installing the app on the emulator or physical device.</li>
+<li>The APK Packager&nbsp;signs your APK using either the debug or release keystore:
+<ol>
+<li>If you are building a&nbsp;<em>debug</em>&nbsp;version of your app --- for testing and profiling --- the packager signs your app with the debug keystore. Android Studio automatically configures new projects with a debug keystore. See below for screenshot.</li>
+<li>If your are bulding a&nbsp;<em>release</em>&nbsp;version of your app, the packager signs your app with the release keystore. There will be a future hybrid activity on how to sign your app for release. If you're curious now, you can read about&nbsp;<a href="https://developer.android.com/studio/publish/app-signing.html#studio" target="_blank" rel="noopener">signing your app in Android Studio</a></li>
+</ol>
+</li>
+<li>Before generating your final APK, the packager uses zipalign tool to optimize your app to use less memory when running on a devices.</li>
+</ol>
+<h4>View Your App's Signing Information</h4>
+<p>In Android Studio, you can view your app's signing information:</p>
+<ol>
+<li>Open your project</li>
+<li>Open the Gradle window (View &gt; Tool Windows &gt; Gradle)</li>
+<li>Expand&nbsp;your project &gt; Tasks &gt; android</li>
+<li>Double-click signingReport to run this task.</li>
+<li>View the output in the Gradle Console window (View &gt; Tool Windows &gt; Gradle Console)</li>
+</ol>
+<p>I opened&nbsp;<em>My First App</em>, and&nbsp;ran the&nbsp;<em>signingReport</em>. Compare your results to mine:</p>
+<p><strong><img src="PastedImage_aetqndl07ocb8wkazguewnzljsytearu0014293928.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" />Notes</strong>:</p>
+<ul>
+<li>the debug keystore is valid until 2045</li>
+<li>I do not have a keystore for the&nbsp;<em>release</em>&nbsp;version of&nbsp;<em>My First App</em></li>
+</ul>
+<p>After running this report, you'll need to configure Android Studio to run your app:&nbsp;<strong>Run &gt; Run...</strong>&nbsp;&gt; select:&nbsp;<strong>app</strong></p>
+<h3>Build Configuration Files</h3>
+<p>Gradle is a popular build tool that compiles and packages apps (see the above screenshot). Android Studio has a gradle plugin that allows you to customize the build process.</p>
+<p>Your Android Studio project includes a few Gradle build configuration files:</p>
+<p><img src="PastedImage_ksjcaej89yb4b5dd3dipu6mn0hp32hsm0014293928.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<h3>The App-level Build File</h3>
+<p>The app-level&nbsp;<strong>gradle.build</strong>&nbsp;file, located in the&nbsp;<em><strong>app/</strong></em>&nbsp;directory, allows you to configure building settings for your app (see above screenshot). Configuring these build settings allows you to provide custom packaging options, such as build types and required dependencies. For example,&nbsp;<em>My First App</em>&nbsp;is dependent on the ConstrainLayout and JUnit (for unit testing; future lab activity).</p>
+<p>As an Android designer &amp; developer, you need to make a decision: which version(s) of Android will my app run on?</p>
+<p>Once this question has been answered, you'll edit your app's&nbsp;<strong>gradle.build</strong>&nbsp;file and change the following settings:</p>
+<ul>
+<li><strong>compiledSdkVersion</strong>&nbsp;- specifies the Android API level Gradle uses&nbsp;to compile your app</li>
+<li><strong>minSdkVersion</strong>&nbsp;-&nbsp;defines the minimum API leve required to run your app</li>
+<li><strong>targetSdkVersion</strong>&nbsp;- specifies the API level used to test your app</li>
+</ul>
+<p>&nbsp;The relationship between these three settings can be expressed as:</p>
+<pre>minSdkVersion &lt;= targetSdkVersion &lt;= compiledSdkVersion</pre>
+<p>In practice, it's been my experience that targetSdkVersion is equal to the compiledSdkVersion:</p>
+<pre>minSdkVersion (lowest possible) &lt;= targetSdkVersion == compiledSdkVersion (latest SDK)</pre>
+<h3>Changing the App-level Build File</h3>
+<p>From the above screenshot, notice:</p>
+<pre>minSdkVersion == targetSdkVersion == compiledSdVersion == API 26</pre>
+<p>Recall, API 26 is Android 8.0, affectionately known as Android 'O' (as in Oreo).</p>
+<p><strong>Issue</strong>:&nbsp;<em>My First App</em>&nbsp;will only run on devices (emulator or physical) with Android 8.0 For example,&nbsp;<em>My First App</em>&nbsp;will not run on my Motorola X, which is running API 23 of Android (Marshmallow)</p>
+<p><strong>Solution</strong>: change the app-level&nbsp;<strong>gradle.build</strong>&nbsp;file, and change the minSdkVersion to&nbsp;<strong>23</strong>:</p>
+<p><img src="PastedImage_k39z8jx8472m0yytxi8ym0fjwjpdm37t0014293928.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<p>Next, click&nbsp;<strong>Sync</strong>, and gradle will re-build the app based on the new settings.</p>
+<p>Now&nbsp;<em>My First App</em>&nbsp;runs on my Motorola X phone:</p>
+<p><img src="PastedImage_g7mjd42gfmczzfgkr5pgxi60ne3ccdp00014293928.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<h3>Resources</h3>
+<p>For additional information, please see:</p>
+<ol>
+<li>Developer Workflow Basics:&nbsp;<a href="https://developer.android.com/studio/workflow.html" target="_blank" rel="noopener">https://developer.android.com/studio/workflow.html</a></li>
+<li>&nbsp;Configure Your Build:&nbsp;<a href="https://developer.android.com/studio/build/index.html" target="_blank" rel="noopener">https://developer.android.com/studio/build/index.html</a></li>
+<li>Picking your compileSdkVersion, minSdkVersion, and targetSdkVersion:&nbsp;<a href="https://medium.com/google-developers/picking-your-compilesdkversion-minsdkversion-targetsdkversion-a098a0341ebd" target="_blank" rel="noopener">https://medium.com/google-developers/picking-your-compilesdkversion-minsdkversion-targetsdkversion-a098a0341ebd</a></li>
+</ol>
+</div>
+</body>
+</html>
