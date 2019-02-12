@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>
+<h1>Android Intents</h1>
+<div>
+<h3>Background&nbsp;Readings</h3>
+<p>Before you begin, please read the following articles on Android Intents:</p>
+<ol>
+<li>Interacting with Other Apps:&nbsp;<a href="http://developer.android.com/training/basics/intents/index.html" target="_blank" rel="noopener">http://developer.android.com/training/basics/intents/index.html</a></li>
+<li>Sending the User to Another App:&nbsp;<a href="http://developer.android.com/training/basics/intents/sending.html" target="_blank" rel="noopener">http://developer.android.com/training/basics/intents/sending.html</a></li>
+<li>Getting a Result from the Activity:&nbsp;<a href="http://developer.android.com/training/basics/intents/result.html" target="_blank" rel="noopener">http://developer.android.com/training/basics/intents/result.html</a></li>
+<li>Allowing Other Apps to Start Your Activity:&nbsp;<a href="http://developer.android.com/training/basics/intents/filters.html" target="_blank" rel="noopener">http://developer.android.com/training/basics/intents/filters.html</a></li>
+<li>Android's API documentation for class Intent:&nbsp;<a href="http://developer.android.com/reference/android/content/Intent.html" target="_blank" rel="noopener">http://developer.android.com/reference/android/content/Intent.html</a></li>
+<li>Intents and Intent Filters:&nbsp;<a href="http://developer.android.com/guide/components/intents-filters.html" target="_blank" rel="noopener">http://developer.android.com/guide/components/intents-filters.html</a></li>
+<li>Tasks and Back Stack:&nbsp;<a href="http://developer.android.com/guide/components/tasks-and-back-stack.html" target="_blank" rel="noopener">http://developer.android.com/guide/components/tasks-and-back-stack.html</a></li>
+</ol>
+<h3>Example App - Demo Intent</h3>
+<p><em>Demo Intent</em>&nbsp;is an app featuring 2 activities: PlainTextActivity and CapitalizedTextActivity.</p>
+<p>When the app launches, the User enters some text, selects which letter of the text to capitalize, and then clicks the floating action button (FAB). When the FAB is clicked, an Intent is used to start the CapitalizedTextActivity, which displays the User's entered text but with capitalized letters.</p>
+<p>Please clone&nbsp;<em>Demo Intent</em>&nbsp;app from my GitHub account:</p>
+<p><iframe title="GitHub repo" src="https://www.edu-apps.org/tools/github/github_summary_repo.html#hurdleg/DemoIntent" width="550" height="200" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen"></iframe></p>
+<p>Perform a code inspection: begin with class PlainTextActivity.java</p>
+<h3>What is an Intent?</h3>
+<p>Android apps typically have more than one activity. To navigate from one activity to another, your app must use an Intent to define your app's&nbsp;<em>intent</em>&nbsp;to do something. When you pass an Intent to the system with a method such as startActivity( ), the system uses the Intent to identify and start the appropriate app component, such as another activity within your app. Using intents even allows your app to start an activity that is contained in a separate app.</p>
+<h3>Android's Class Intent</h3>
+<p>From Android's API documentation for class Intent:</p>
+<blockquote>
+<p>An intent is an abstract description of an operation to be performed. It can be used with startActivity to launch an Activity, broadcastIntent to send it to any interested BroadcastReceiver components, and startService(Intent) or bindService(Intent, ServiceConnection, int) to communicate with a background Service.</p>
+</blockquote>
+<p>An Intent has the following pieces of information:</p>
+<ul>
+<li>action (the general action to be performed)</li>
+<li>data (the data to operate on)</li>
+</ul>
+<p>Optional pieces of information include:</p>
+<ul>
+<li>category (gives additional information about the action to execute)</li>
+<li>type (specifies an explicit (a MIME type) of the intent data)</li>
+<li>component (specifies an explicit name of a component class to use for the intent)</li>
+<li>extras (this is a Bundle of any additional information)</li>
+</ul>
+<h3>Type of Intents</h3>
+<p>There are two types of Intent:</p>
+<ol>
+<li>Explicit</li>
+<li>Implicit</li>
+</ol>
+<p>Explicit Intents have specified a component (via setComponent(ComponentName) or setClass(Context, Class)), which provides the exact class to be run. Often these will not include any other information, simply being a way for an application to launch various internal activities it has as the user interacts the application.</p>
+<p>Implicit Intents have not specified a component; instead, they must include enough information for the system to determine which of the available components is best to run for that intent.</p>
+<h3>Usage: startActivity( )</h3>
+<p>From the&nbsp;<em>Demo Intent</em>&nbsp;example app, use an intent to navigate from the PlainTextActivity to the CaptializedTextActivity:</p>
+<pre>Intent intent = new Intent( getApplicationContext( ), CapitalizedTextActivity.class );</pre>
+<p>This code is called when the user enters some plain text, selects the letter to capitalize, and performs a floating action bar (FAB) click.</p>
+<p>Next, a flag to indicate the activity being launched is already running in the current task, then instead of launching a new instance of that activity, all of the other activities on top of it will be closed and this intent will be delivered to the (now on top) old activity as a new intent.</p>
+<pre>intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );</pre>
+<p>Add extra information to be delivered to the next activity:</p>
+<pre>intent.putExtra( THE_MESSAGE, plainText );
+intent.putExtra( THE_LETTER, mLetter );</pre>
+<p>Notice:</p>
+<ul>
+<li>name / value pairing
+<ul>
+<li>e.g. THE_MESSAGE is the&nbsp;<em>name</em>, and the String plainText is its&nbsp;<em>value</em></li>
+</ul>
+</li>
+<li>the name is represented as a reverse URI defined by us, the developers</li>
+</ul>
+<p>Finally, start the next activity, CaptializedTextActivity, which is encapsulated in the intent object:</p>
+<pre>startActivity( intent );</pre>
+<h3>Usage: New Activity</h3>
+<p>The startActivity( ) method from the previous step inflates the CapitalizedTextActivity.</p>
+<p>The extra information from the previous step can be consumed in the onCreate( ) method.</p>
+<blockquote>Do you remember why onCreate( ) is a&nbsp;<em>special</em>&nbsp;instance method?</blockquote>
+<pre>mCapitalizedText = (EditText) findViewById( R.id.text_capitalized );
+
+// Get the bundle of extras that was sent to this activity
+Bundle bundle = getIntent().getExtras();
+if ( bundle != null ) {
+    String plainMessage = bundle.getString( THE_MESSAGE );
+    char letter = bundle.getChar( THE_LETTER );
+    mCapitalizedText.setText( StringUtil.capitalize(plainMessage, letter) );
+}</pre>
+<p>Class StringUtil's class (i.e. static) method capitalize( ) returns a String object with all occurrences of letter in plainMessage as a capital letter.<a href="content/implementation-notes-for-caesar-cipher" type="button" style="list-style-type: initial;"></a></p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h3>Android's Toast</h3>
+<div>
+<p>Have you ever needed to send a quick, little message to the User?</p>
+<p>In JavaScript, you&nbsp;could display your message with an alert dialog (modal).</p>
+<p>For example:</p>
+<pre>alert( "My Message" );</pre>
+<p>In Android, one way to notify the User is with a&nbsp;<em>Toast</em>&nbsp;message.</p>
+<h2>Android's Class Toast</h2>
+<p>A toast is a view containing a small text message for the User.</p>
+<p>Toast messages are meant to be light-weight, and should not interfere with the User.&nbsp;When the Toast is shown to the User, it appears floating over the app, and it will never receive focus.</p>
+<h3>How to Use</h3>
+<p>The easiest way to&nbsp;create a Toast is to call the static (i.e. class) method&nbsp;<em>makeText( )</em>. There are two versions:</p>
+<ol>
+<li>Toast makeText( Context context, int resId, int duration )</li>
+<li>Toast makeText( Context context, CharSequence text, duration )</li>
+</ol>
+<p>Notice both versions return an instance of class&nbsp;<strong>Toast</strong>.</p>
+<p>To display your text message, use the instance method&nbsp;<em>show( )</em>.</p>
+<p>Putting it all together:</p>
+<pre>package com.algonquincollege.hurdleg.myfirstapp;<br /><br />import android.content.Context;<br />import android.support.v7.app.AppCompatActivity;<br />import android.os.Bundle;<br />import android.widget.Toast;<br /><br />public class MainActivity extends AppCompatActivity {<br /><br />    @Override<br />    protected void onCreate(Bundle savedInstanceState) {<br />        super.onCreate(savedInstanceState);<br />        setContentView(R.layout.activity_main);<br /><br />        Context context = getApplicationContext();<br />        CharSequence text = "My Awesome Message";<br />        int duration = Toast.LENGTH_SHORT;<br /><br />        Toast toast = Toast.makeText( context, text, duration );<br />        toast.show();<br /><br />    }   // end onCreate()<br /><br />}   // end MainActivity</pre>
+<p>We can&nbsp;simplify the code to:</p>
+<pre>@Override<br />protected void onCreate(Bundle savedInstanceState) {<br />    super.onCreate(savedInstanceState);<br />    setContentView(R.layout.activity_main);<br /><br />    Toast.makeText(getApplicationContext()<br />            , "My Awesome Message"<br />            , Toast.LENGTH_SHORT).show();<br /><br />}   // end onCreate()</pre>
+<p>Notice I chained 2 messages together: makeText( ) + show( )</p>
+<p>Let's simplify the code some more. Notice that class&nbsp;<strong>MainActivity</strong>&nbsp;inherits from (extends from) class&nbsp;<strong>AppCompatActivity</strong>. And that class&nbsp;<strong>AppCompatActivity</strong>&nbsp;inherits from&nbsp;<strong>Activity</strong>, which, in turn, inherits from class&nbsp;<strong>Context</strong>.</p>
+<p><img src="PastedImage_7qnaubelqgjuotllev1bnqq7ihi4zkyj0013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<p>In other words, our&nbsp;<strong>MainActivity</strong>&nbsp;class is a&nbsp;<strong>Context</strong>.</p>
+<p>So we can do the following:</p>
+<pre>Toast.makeText( this, "My Awesome Message", Toast.LENGTH_SHORT ).show();</pre>
+<p>Notice I used Java's meta-variable&nbsp;<strong>this</strong>&nbsp;as the first parameter to&nbsp;<em>makeText( )</em>. In this example,&nbsp;<strong>this</strong>&nbsp;refers to the instance of class&nbsp;<strong>MainActivity</strong>&nbsp;at run-time. And because&nbsp;<strong>MainActivity</strong>&nbsp;is also a&nbsp;<strong>Context</strong>&nbsp;(see above),&nbsp;<strong>this</strong>&nbsp;refers to the&nbsp;<strong>Context</strong>&nbsp;part of&nbsp;<strong>MainActivity</strong>.</p>
+<p>What about the other version of&nbsp;<em>makeText( )</em>... when would you use that?</p>
+<p>Notice I've used a literal String for the text message: "My Awesome Message"</p>
+<p>It's literal because I used double-quotes (") and (literally) typed: My Awe...</p>
+<p>Another way to say&nbsp;<em>literal String</em>: "I've hard-coded the text message".</p>
+<p>As a best practice, literal Strings should be externalized to the&nbsp;<strong>strings.xml</strong>&nbsp;resource (res &gt; values).</p>
+<p>For our final version, go ahead an externalize the text message "My Awesome Message" to&nbsp;<strong>strings.xml</strong>.</p>
+<p>Now you can simplify to:</p>
+<pre>Toast.makeText( this, R.string.toastMessage, Toast.LENGTH_SHORT ).show();</pre>
+<h3>References</h3>
+<p>For more information, see</p>
+<ol>
+<li>Android Developer API Guide on Toast:&nbsp;<a href="https://developer.android.com/guide/topics/ui/notifiers/toasts.html" target="_blank" rel="noopener">https://developer.android.com/guide/topics/ui/notifiers/toasts.html</a></li>
+<li>API Documenation for Class Toast:&nbsp;<a href="https://developer.android.com/reference/android/widget/Toast.html" target="_blank" rel="noopener">https://developer.android.com/reference/android/widget/Toast.html</a></li>
+</ol>
+</div>
+</body>
+</html>

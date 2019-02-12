@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>
+<div>
+<h2>You will Learn</h2>
+<ul>
+<li>different ways to implement an event handler</li>
+</ul>
+<p>This document shows the different ways to handle Android events:</p>
+<ol>
+<li>Set the view object's XML property to the event handler.</li>
+<li>Programmatically set the view object's event handler to an anonymous inner class.</li>
+<li>Have the Activity class implement the appropriate interface.</li>
+<li>Use an adapter class.</li>
+<li>Other ways / variants.</li>
+</ol>
+<h3>1.0 XML Property</h3>
+<p>Using the IDE's&nbsp;WYSIWYG editor, set the view object's XML property to the name of the event handler.</p>
+<p>For example, consider this fragment of XML:</p>
+<pre>&lt;Button
+    android:id="@+id/loginButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="<strong>handleLoginButton</strong>" /&gt;</pre>
+<p>Notice:</p>
+<ul>
+<li>the Button's onClick property is set to an instance method named:&nbsp;<strong>handleLoginButton</strong></li>
+<li>only the name of the instance method is provided</li>
+<li>you choose the name of the instance method</li>
+</ul>
+<p>Next, implement the instance method in MainActivity.java:</p>
+<pre>public void <strong>handleLoginButton</strong>( View v ) {
+    Toast.makeText( getApplicationContext( ), "Login button :: onClick( )", Toast.LENGTH_SHORT ).show( );
+}</pre>
+<p>Notice:</p>
+<ul>
+<li>the access modifier must be:&nbsp;<strong>public</strong></li>
+<li>the return type must be:&nbsp;<strong>void</strong></li>
+<li>the method name must be identical to the value set in the XML</li>
+<li>the method accepts one parameter of type:&nbsp;<strong>View</strong></li>
+</ul>
+<p>&nbsp;</p>
+<h3>2.0 Anonymous Inner Class</h3>
+<p>Consider this example,</p>
+<pre>public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_main);
+
+	Button loginButton = (Button) findViewById( R.id.loginButton );
+
+	// register an anonymous inner class as the event handler for the loginButton
+	loginButton.setOnClickListener( new OnClickListener( ) {
+		@Override
+		public void onClick(View v) {<br />                        // handle the button click: display a Toast message to the user.
+			Toast.makeText( getApplicationContext( ), "Login button :: onClick( )", Toast.LENGTH_SHORT ).show( );
+		}
+	});
+    }</pre>
+<h3>3.0 Implement an Interface</h3>
+<p>Another possible way to handle an Android event is to have class MainActivity implement the appropriate listener.</p>
+<p>Java only supports single-class inheritance; a class can only extend from one class. However, there is no limit on the number of interfaces that a Java class can implement.</p>
+<p>For example,</p>
+<pre>public class MainActivity extends Activity implements OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_main);
+
+	Button loginButton = (Button) findViewById( R.id.loginButton );
+
+	// register this Activity as the event handler for the loginButton
+	loginButton.setOnClickListener( this );
+    }
+
+    @Override
+    public void onClick( View v ) {
+    Toast.makeText( getApplicationContext( ), "Login button :: onClick( )", Toast.LENGTH_SHORT ).show( );
+    }</pre>
+<p>Notice:</p>
+<ul>
+<li>class MainActivity is a specialized Activity because it extends from class Activity</li>
+<li>class MainActivity is also an OnClickListener because it implements the OnClickListener interface</li>
+<li>class MainActivity is also an Object, because class Object is the root class of all classes in Java</li>
+<li>when the loginButton&nbsp;is clicked, the onClick( ) instance method is called</li>
+<li>the name of the instance method is pre-determined, and is specified in the interface; in this example, the OnClickListener interface</li>
+</ul>
+<p>Consult Android's API documentation for the interface OnClickListener:&nbsp;<a href="http://developer.android.com/reference/android/view/View.OnClickListener.html" target="_blank" rel="noopener">http://developer.android.com/reference/android/view/View.OnClickListener.html</a></p>
+<p>A possible implementation of the OnClickListener interface:</p>
+<pre>public static interface OnClickListener {
+    public abstract void onClick( View v );
+}</pre>
+<p>When implementing an interface, you must remember to&nbsp;faithfully implement all of the methods defined in the interface. Violating this rule results in an error(s), and the Android project will not build.</p>
+<h3>4.0 Adapter Class</h3>
+<p>This strategy makes use of an Adapter class, either implemented in Java/Android or by you.</p>
+<p>Based on the Adapter object-oriented design pattern.</p>
+<p>This strategy is not common in Android development, so we won't explore it any further.</p>
+<h3>5.0 Other Ways / Variants</h3>
+<p>While researching Android and Java, you may read code that implements an event handler in a slightly different way than the strategies I've described above. For example, you may see the definition of an inner class (a class within a public class):</p>
+<pre>public class MainActivity extends Activity {
+    private Button loginButton;
+    private LoginButtonHandler lbh;
+
+    @Override
+    protected onCreate( Bundle bundle ) {
+        Button loginButton = (Button) findViewById( R.id.loginButton );
+        LoginButtonHandler loginButtonHandler = new LoginButtonHandler( );
+        loginButton.setOnClickListener( loginButtonHandler );
+    }
+
+    class LoginButtonHandler implements OnClickListener {
+        @Override
+        public void onClick( View v ) {
+            // Do something when the button is clicked
+        }
+    }
+}</pre>
+<h3></h3>
+<h3>Summary</h3>
+<p>Make sure you are comfortable with the first two strategies.</p>
+<p>You should be able to:</p>
+<ul>
+<li>read another Android developer's code and understand each of these strategies</li>
+<li>write each of these strategies in your own work, such as assignments, labs, and projects<a href="content/example-app-big-button-app" type="button" style="list-style-type: initial;"></a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

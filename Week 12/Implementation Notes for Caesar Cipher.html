@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h3>Implementation Notes</h3>
+<p>This document describes how I implemented&nbsp;the&nbsp;<em>Caesar Cipher</em>&nbsp;app.</p>
+<p><strong>Please note</strong>: the app is complete, so go ahead and clone my project hosted on GitHub:</p>
+<p><iframe title="GitHub repo" src="https://www.edu-apps.org/tools/github/github_summary_repo.html#hurdleg/CaesarCipher" width="550" height="200" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen"></iframe></p>
+<h3>Before You Begin</h3>
+<ul>
+<li>Android Intents</li>
+<li>Reference Example: DemoIntent</li>
+<li>Java APIs
+<ul>
+<li>Class Character:&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html</a></li>
+<li>Class String:&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/8/docs/api/java/lang/String.html</a></li>
+<li>Class StringBuffer:&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html</a></li>
+</ul>
+</li>
+<li>Caesar cipher:&nbsp;<a href="http://en.wikipedia.org/wiki/Caesar_cipher" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Caesar_cipher</a></li>
+<li>ROT13
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/ROT13" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/ROT13</a></li>
+<li><a href="http://www.rot13.com/" target="_blank" rel="noopener">http://www.rot13.com/</a></li>
+</ul>
+</li>
+<li>ASCII Table:&nbsp;<a href="http://www.asciitable.com/" target="_blank" rel="noopener">http://www.asciitable.com/</a></li>
+</ul>
+<h3>The App: Caesar Cipher</h3>
+<p>Caesar Cipher is a two activity Android app that encrypts plain text messages and decrypts encrypted messages.</p>
+<p>One of the simplest examples of a substitution cipher is the&nbsp;<em>Caesar cipher</em>, which is said to have been used by Julius Caesar to communicate with his army. Caesar is considered to be one of the first persons to have ever employed encryption for the sake of securing messages. Caesar decided that shifting each letter in the message would be his standard algorithm, and so informed all of his generals of his decision, and was then able to send them secured messages. Using the Caesar Shift, with a rotation value of 3 (which is rotation letter 'D'; remember in computer science we start counting from 0 (zero)), the message: "RETURN TO ROME" would be encrypted as "UHWXUQ WR URPH." In this example, 'R' is shifted to 'U', 'E' is shifted to 'H' and so on. Now, even if the enemy did intercept the message, it would be useless, since only Caesar's generals could read it.</p>
+<p>Only alphabetic characters encrypted (respecting upper and lowercase): a, b, c, A, B, C, etc.&nbsp;<strong>All</strong>&nbsp;other symbols are&nbsp;ignored. For example, numbers (1, 2, 3, etc.) and punctuation symbols (~, !, @, #, $, etc.) are all ignored.</p>
+<h4>Practical Uses</h4>
+<p>Long before Facebook and Twitter there was&nbsp;<a href="http://en.wikipedia.org/wiki/Usenet" target="_blank" rel="noopener">Usenet</a></p>
+<p>Back in the day, if you wanted to post a colourful joke or a spoiler to a movie/game, you would encrypt your message using ROT13 (rotate by 13 letters). ROT13 is a Caesar Cipher with a rotation letter of 'N', which is the 13th letter of the English alphabet (remember to start counting at 'A' with 0 (zero)).</p>
+<h3>Note on MVC</h3>
+<p>It's worth mentioning that Caesar Cipher was not designed according to MVC.</p>
+<p>I defined a utility Java class named CaesarCipher.java. This class has two class (i.e. static) methods:</p>
+<ul>
+<li>public static String decrypt( String encryptedMessage, int rotation )</li>
+<li>public static String encrypt( String plainMessage, int rotation )</li>
+</ul>
+<blockquote><strong>Challenge</strong>&nbsp;- technically these two methods can be reduced to one single method. Define only one class method that can encrypt or decrypt a message given a rotation and direction as parameters. Refactoring to one method is not essential to the lab; it's optional.</blockquote>
+<p>In some cases it doesn't make sense to use MVC.</p>
+<h3>1.0 Android Studio Application</h3>
+<p>Launch Android Studio, and Start a new Android Studio project.</p>
+<h4>Configure your new project</h4>
+<ul>
+<li>Application Name:&nbsp;<strong>Caesar Cipher</strong></li>
+<li>Company Domain:&nbsp;<strong><em>yourCollegeUsername</em></strong>.algonquincollege.com
+<ul>
+<li>e.g. com.algonquincollege.hurdleg.caesarcipher</li>
+</ul>
+</li>
+<li>Make note of the Project location on your file-system</li>
+</ul>
+<h4>Target Android Devices</h4>
+<ul>
+<li>Select: Phone and Table</li>
+<li>Minimum SDK: API 28: Android 9.0 (Pie)</li>
+</ul>
+<h4>Add an Activity&nbsp;to Mobile</h4>
+<ul>
+<li>Select:&nbsp;<strong>Basic&nbsp;Activity</strong></li>
+</ul>
+<p>Notice&nbsp;<em>Basic Activity</em>&nbsp;features Android's floating action button (FAB).</p>
+<h4>Customize the Activity</h4>
+<ul>
+<li><strong>Replace</strong>&nbsp;Activity Name with:&nbsp;<strong>PlainTextActivity</strong></li>
+<li><strong>Replace</strong>&nbsp;Title with:&nbsp;<strong>Plain Text</strong></li>
+<li><strong>Replace</strong>&nbsp;Menu Resource Name:&nbsp;<strong>menu</strong></li>
+</ul>
+<p>Click the&nbsp;<strong>Finish</strong>&nbsp;button.</p>
+<p>Notice&nbsp;<em>PlainTextActivity</em>&nbsp;extends from&nbsp;<em>AppCompatActivity</em>.</p>
+<h3>2.0 Functional Requirements</h3>
+<p>The app has two activities:</p>
+<ol>
+<li>PlainTextActivity</li>
+<li>EncryptedTextActivity</li>
+</ol>
+<p>The app has two menu items:</p>
+<ol>
+<li>author info</li>
+<li>rotation setting</li>
+</ol>
+<h4>2.1 PlainTextActivity</h4>
+<p>The PlainTextActivity view component tree:</p>
+<ul>
+<li>RelativeLayout
+<ul>
+<li>TextView (prompt the user to enter their message in plain text)</li>
+<li>ScrollView
+<ul>
+<li>EditText (the user's plain text message)</li>
+</ul>
+</li>
+<li>Clear button</li>
+<li>FAB</li>
+</ul>
+</li>
+</ul>
+<h4>2.1.1 Usage</h4>
+<p>The user is prompted to enter their plain text message. Next, the user clicks the settings menu item (i.e. wrench icon) and selects the rotation letter. Clicking the Clear button clears the plain text message.</p>
+<p>To encrypt the message, the user clicks floating action bar (FAB). Use an Android intent to inflate the EncryptedTextActivity to display the encrypted message.</p>
+<p>Disable the FAB if the plain message is empty. In other words, the user cannot click the FAB to encrypt an empty message.</p>
+<p>Use this icon for the FAB: @android:drawable/ic_idle_lock</p>
+<h4>2.2 EncryptedTextActivity</h4>
+<p>The EncryptedTextActivity view component tree:</p>
+<ul>
+<li>RelativeLayout
+<ul>
+<li>TextView (prompt the user to enter their encrypted message)</li>
+<li>ScrollView
+<ul>
+<li>EditText (the user's encrypted text message)</li>
+</ul>
+</li>
+<li>Clear button</li>
+<li>FAB</li>
+</ul>
+</li>
+</ul>
+<h4>2.2.1 Usage</h4>
+<p>The user is prompted to enter their encrypted text message. Next, the user clicks the settings menu item (i.e. wrench icon) and selects the rotation letter. Clicking the Clear button clears the encrypted text message.</p>
+<p>To decrypt the message, the user clicks the floating action bar (FAB). Use an Android intent to inflate the PlainTextActivity to display the message in plain text.</p>
+<p>Disable the FAB if the encrypted&nbsp;message is empty. In other words, the user cannot click the FAB to de-crypt&nbsp;an empty message.</p>
+<p>Use this icon for the FAB: @android:drawable/ic_partial_secure</p>
+<h4>2.3 Menu item: Author Info</h4>
+<p>Display your name (first + last) and username when the information icon (the "i" in the action bar) is clicked.</p>
+<p>To display the "i" icon: @android:drawable/ic_menu_info_details</p>
+<h4>2.4 Menu item: Rotation Setting</h4>
+<p>When the "wrench" icon is clicked by the user, display a Java CharacterPickerDialog that displays the uppercase letters of the English alphabet. Handle the event when the user selects a letter and clicks it. You'll need to remember the user's selected letter --- it represents the rotation.</p>
+<p>To display the "wrench" icon: @android:drawable/ic_menu_preferences</p>
+<h4>2.5 Additional FRs</h4>
+<ol>
+<li>Display the PlainTextActivity when your app first launches. The &lt;EditText&gt; is initially empty of user input; display this hint: Type Your&nbsp;Message Here&amp;#8230;</li>
+<li>If the user clears the EncryptedTextActivity, display this hint: Type Your Encrypted Message Here&amp;#8230;</li>
+<li>All user input must be validated (see previous).</li>
+<li>Only letters of the English alphabet are encrypted/decrypted.&nbsp;Ignore all other symbols.</li>
+<li>The case of the letter must be preserved: uppercase to uppercase, and lowercase to lowercase.</li>
+<li>Running behaviour:
+<ol>
+<li>No run-time warnings (may be overlooked depending on the warning and the source of the warning)</li>
+<li>No run-time exceptions</li>
+</ol>
+</li>
+</ol>
+<h3>3.0 Non-Functional Requirements</h3>
+<ol>
+<li>AVD: CST8227</li>
+<li>Title: Caesar Cipher</li>
+<li>The default rotation letter is: N (which is the 13th letter from 'A'; hence ROT13)</li>
+<li>Remember to modify the AndroidManifest.xml file. Specifically, you must identify&nbsp;<em>all</em>&nbsp;activities for the Caesar Cipher app.</li>
+<li>Define a Java class named: CaesarCipher.java. Place this class in a packaged named: util</li>
+<li>Project builds clean, without errors and/or warnings.</li>
+</ol>
+<h3>4.0 Documentation</h3>
+<p>DO</p>
+<ul>
+<li>For each *.java file -&gt; to the line just above&nbsp;<em>public class</em>&nbsp;... , put the following header comment:<br />
+<pre>/**
+ *  Purpose/Description of your app
+ *  @author Firstname Lastname (yourAlgonquinCollegeEmail)
+ */</pre>
+</li>
+</ul>
+<p>DO NOT || Optional</p>
+<ul>
+<li>documentation for constructors, fields (class &amp; instance), methods (static and instance)</li>
+<li>generate the JavaDoc documentation</li>
+</ul>
+<h3>5.0 Testing and Validation</h3>
+<p>Get into the good habit of thoroughly testing your own code!</p>
+<h3>6.0 Hints and Suggestions</h3>
+<ul>
+<li>Rot13 (Java):&nbsp;<a href="http://en.literateprograms.org/Rot13_(Java)" target="_blank" rel="noopener">http://en.literateprograms.org/Rot13_(Java)</a></li>
+</ul>
+</body>
+</html>

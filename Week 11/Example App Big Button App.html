@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>
+<div>
+<p>Let's create an app to further study how to handle events in Android.</p>
+<p>The app we'll create is named:&nbsp;<em>Big Button App</em>, and you're encouraged to build your own version.</p>
+<h3>Android Studio Application</h3>
+<p>Launch Android Studio, and Start a new Android Studio project.</p>
+<h4>Configure your new project</h4>
+<ul>
+<li>Application Name:&nbsp;<strong>Big Button First App</strong></li>
+<li>Company Domain:&nbsp;<strong><em>yourCollegeUsername</em></strong>.algonquincollege.com</li>
+</ul>
+<p>&nbsp;</p>
+<h4>Select the form factors your app will run on</h4>
+<ul>
+<li>Select:&nbsp;<strong>Phone and Table</strong></li>
+<li>Minimum SDK:&nbsp;<strong>API 28: Android 9.0 (Pie)</strong></li>
+</ul>
+<p>&nbsp;</p>
+<h4>Add an activity to Mobile</h4>
+<ul>
+<li>Select:&nbsp;<strong>Empty&nbsp;Activity</strong></li>
+</ul>
+<p>&nbsp;</p>
+<h4>Customize the Activity</h4>
+<ul>
+<li>Click the&nbsp;<strong>Finish</strong>&nbsp;button to accept the default settings.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Add an Externalized String</h3>
+<p>Edit&nbsp;<strong>strings.xml</strong>&nbsp;(res &gt; values), and&nbsp;add following externalized string for the button's text:</p>
+<pre>&lt;string name="buttonText"&gt;Big Button&lt;/string&gt;</pre>
+<p>Save your changes.</p>
+<p>&nbsp;</p>
+<h3>Replace the Constraint Layout</h3>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>&nbsp;(res &gt; layout), switch to&nbsp;<strong>Text</strong>&nbsp;pane, select all of the XML code and delete it.</p>
+<p>Next, replace the content with the following:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />&lt;RelativeLayout<br />    xmlns:android="<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"<br />    android:layout_width="match_parent"<br />    android:layout_height="match_parent"&gt;<br /><br />    &lt;Button<br />        android:layout_width="wrap_content"<br />        android:layout_height="wrap_content"<br />        android:layout_centerHorizontal="true"<br />        android:layout_centerVertical="true"<br />        android:text="@string/buttonText"<br />        android:textSize="36sp" /&gt;<br /><br />&lt;/RelativeLayout&gt;</pre>
+<p>Switch to&nbsp;<strong>Design</strong>&nbsp;pane, and you should see:</p>
+<p>&nbsp;</p>
+<h3><img src="PastedImage_u0kr5dyuwawk9pvy03x5hliws1mosaav0013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" />Run the App</h3>
+<p>Run&nbsp;<em>Big Button App</em>&nbsp;on the Android emulator.</p>
+<p>Notice when you click&nbsp;<em>Big Button</em>, nothing happens....boo!</p>
+<p>Let's implement an event handler so that when the user clicks the button, something happens :)</p>
+</div>
+</div>
+</body>
+</html>

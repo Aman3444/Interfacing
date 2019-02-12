@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h3>Improve the User Experience</h3>
+<div>
+<p>Let's improve the user experience to&nbsp;<em>Big Button App</em>.</p>
+<p>When the app launches,&nbsp;<em>Big Button</em>&nbsp;will&nbsp;not&nbsp;be enabled ---- meaning, the User cannot click&nbsp;<em>Big Button</em>.</p>
+<p>When the User enters an integer,&nbsp;<em>that's</em>&nbsp;when&nbsp;<em>Big Button</em>&nbsp;will be enabled :)</p>
+<p>Let's begin with changes to the presentation tier</p>
+<h3>The View</h3>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>, and make&nbsp;this change to the Button</p>
+<pre>&lt;Button<br />    android:id="@+id/bigButton"<br />    android:layout_width="wrap_content"<br />    android:layout_height="wrap_content"<br />    android:layout_centerHorizontal="true"<br />    android:layout_centerVertical="true"<br />    android:enabled="false"<br />    android:text="@string/buttonText"<br />    android:textSize="36sp" /&gt;</pre>
+<p>Notes:</p>
+<ul>
+<li><em>Big Button</em>&nbsp;is not enabled (by default); the User cannot click&nbsp;<em>Big Button</em></li>
+</ul>
+<h3>The Event Handler</h3>
+<p>Edit&nbsp;<strong>MainActivity.java</strong>, and make the following changes:</p>
+<pre>package com.algonquincollege.hurdleg.bigbuttonapp;<br /><br />import android.os.Bundle;<br />import android.support.v7.app.AppCompatActivity;<br />import android.text.Editable;<br />import android.text.TextWatcher;<br />import android.view.View;<br />import android.widget.Button;<br />import android.widget.EditText;<br />import android.widget.Toast;<br /><br />public class MainActivity extends AppCompatActivity {<br /><br />    // CLASS VARIABLES<br />    public static final int MAX_AGE = 122; // based on Wikipedia<br />    public static final int MIN_AGE = 1;<br /><br />    // TODO: promote bigButton from local variable to instance variable. Way to go Big Button!<br />    private Button   bigButton;<br />    private EditText userAgeEditText;<br /><br />    @Override<br />    protected void onCreate(Bundle savedInstanceState) {<br />        super.onCreate(savedInstanceState);<br />        setContentView(R.layout.activity_main);<br /><br />        // get a reference to the userAgeEditText<br />        userAgeEditText = (EditText) findViewById(R.id.userAge);<br /><br />        //TODO get a reference to bigButton (now an instance variable)<br />        bigButton = (Button) findViewById(R.id.bigButton);<br /><br />        // register an anonymous inner class as the event handler for bigButton<br />        bigButton.setOnClickListener(new View.OnClickListener() {<br />            @Override<br />            public void onClick(View view) {<br />                String userAgeString = userAgeEditText.getText().toString();<br /><br />                //TODO: remove try/catch block<br />                int age = Integer.parseInt(userAgeString);<br /><br />                // At this line: User has entered a valid integer for their age<br />                // Next, apply domain-range check: MIN_AGE &lt;= age &lt;= MAX_AGE<br /><br />                // Validation Rule: min age check<br />                if ( age &lt; MIN_AGE ) {<br />                    userAgeEditText.setError( "Please Enter Your Age &gt; " + MIN_AGE );<br />                    userAgeEditText.requestFocus();<br />                    return;<br />                }<br /><br />                // Validation Rule: max age check<br />                if ( age &gt; MAX_AGE ) {<br />                    userAgeEditText.setError( "Please Enter Your Age &lt;= " + MAX_AGE );<br />                    userAgeEditText.requestFocus();<br />                    return;<br />                }<br /><br />                // personalized greeting to the User<br />                Toast.makeText( getApplicationContext(),<br />                        "You Entered " + age + " Years for Your Age",<br />                        Toast.LENGTH_SHORT).show();<br /><br />                // re-set text field<br />                userAgeEditText.setText( "" );<br />            }<br />        });<br /><br />        //TODO: register a key listener on the age text field<br />        // this is the event handler for the text field<br />        // runs each time the User enters an integer digit<br />        userAgeEditText.addTextChangedListener(new TextWatcher() {<br />            @Override<br />            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {<br />                // NOP (no op[eration] --- safely ignore<br />                // must implement method as required by the TextWatcher() interface<br />            }<br /><br />            @Override<br />            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {<br />                // notice: I don't need to convert to a String (i.e. no toString()<br />                // however: class Editable (returned by getText()) does not understand the method<br />                //          isEmpty()<br />                // class Editable does understand length()<br />                if ( userAgeEditText.getText().length() &gt; 0 ) {<br />                    bigButton.setEnabled( true );<br />                } else {<br />                    bigButton.setEnabled( false );<br />                }<br />            }<br /><br />            @Override<br />            public void afterTextChanged(Editable editable) {<br />                // NOP<br /><br />            }<br />        });<br /><br />    } //end onCreate<br /><br />} //end class</pre>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>change package ownership from me to you (1st line)</li>
+<li>open Android Studio's //TODO window: View &gt; Tool Windows &gt; TODO</li>
+</ul>
+<h3>Run the App</h3>
+<p>Run&nbsp;<em>Big Button App</em>&nbsp;on the emulator, enter your&nbsp;age and click&nbsp;<strong>Big Button</strong>&nbsp;:)</p>
+<p>Go ahead and enter the same values as before. In other words, conduct a&nbsp;<em>regression</em>&nbsp;test of your app. We want to make sure we didn't break our app after making the above changes.</p>
+<p>So.... did your app behave as expected?</p>
+<h3>Further Reading</h3>
+<ol>
+<li>Android's TextWatcher interface:&nbsp;<a href="https://developer.android.com/reference/android/text/TextWatcher.html" target="_blank" rel="noopener">https://developer.android.com/reference/android/text/TextWatcher.html</a></li>
+</ol>
+</div>
+</body>
+</html>

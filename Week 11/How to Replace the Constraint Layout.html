@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<p>When Android Studio created your&nbsp;<em>My First App</em>, it set the layout manger to a&nbsp;<code>ConstraintLayout</code>&nbsp;--- a new type of layout available in the Android Support repository for building flexible and efficient layouts.</p>
+<p>When you created&nbsp;<em>My First App</em>, after choosing the&nbsp;<code>Empty Activity</code>&nbsp;template, the layout file&nbsp;<code>res/layout/activity_main.xml</code>&nbsp;has the following content:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />&lt;android.support.constraint.ConstraintLayout<br />    xmlns:android="<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"<br />    xmlns:app="<a href="http://schemas.android.com/apk/res-auto">http://schemas.android.com/apk/res-auto</a>"<br />    xmlns:tools="<a href="http://schemas.android.com/tools">http://schemas.android.com/tools</a>"<br />    android:layout_width="match_parent"<br />    android:layout_height="match_parent"<br />    tools:context=".MainActivity"&gt;<br /><br />    &lt;TextView<br />        android:layout_width="wrap_content"<br />        android:layout_height="wrap_content"<br />        android:text="Hello World!"<br />        app:layout_constraintBottom_toBottomOf="parent"<br />        app:layout_constraintLeft_toLeftOf="parent"<br />        app:layout_constraintRight_toRightOf="parent"<br />        app:layout_constraintTop_toTopOf="parent" /&gt;<br /><br />&lt;/android.support.constraint.ConstraintLayout&gt;</pre>
+<p>Note the use of&nbsp;<code>ConstraintLayout</code>&nbsp;as the top-level tag (root tag) of the XML document. The&nbsp;<code>TextView</code>&nbsp;lists 4 constraints to position it within the&nbsp;<code>ConstraintLayout</code>.</p>
+<h3>Replace the Constraint Layout</h3>
+<p>In CST8227, we'll use simpler layouts and use&nbsp;<code>LinearLayout</code>&nbsp;and&nbsp;<code>RelativeLayout</code>.</p>
+<p>Now when you create a new project, go to&nbsp;<code>res/layout/activity_main.xml</code>&nbsp;and copy-and-paste this code for a&nbsp;<code>LinearLayout</code>:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />&lt;LinearLayout<br />    xmlns:android="<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"<br />    android:layout_width="match_parent"<br />    android:layout_height="match_parent"<br />    android:orientation="vertical"&gt;<br /><br />    &lt;TextView<br />        android:layout_width="wrap_content"<br />        android:layout_height="wrap_content"<br />        android:text="Hello World!" /&gt;<br />&lt;/LinearLayout&gt;</pre>
+<p>Notice the orientation is set to&nbsp;<code>vertical</code>. You can also set the orientation to&nbsp;<code>horizontal</code>.</p>
+<p>And for a&nbsp;<code>RelativeLayout</code>:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />&lt;RelativeLayout<br />    xmlns:android="<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"<br />    android:layout_width="match_parent"<br />    android:layout_height="match_parent"&gt;<br /><br />    &lt;TextView<br />        android:layout_width="wrap_content"<br />        android:layout_height="wrap_content"<br />        android:text="Hello World!" /&gt;<br />&lt;/RelativeLayout&gt;&nbsp;</pre>
+<h3>Learn More About Constraint Layout</h3>
+<p>If you would like to know more about ConstraintLayout, check out the documentation at:&nbsp;<a href="https://developer.android.com/studio/write/layout-editor.html" target="_blank" rel="noopener">https://developer.android.com/studio/write/layout-editor.html</a></p>
+<p>As well, for a hands-on demo using Android Studio's Layout Editor with ConstraintLayout, here's a Code Lab:&nbsp;<a href="https://codelabs.developers.google.com/codelabs/constraint-layout/index.html#0" target="_blank" rel="noopener">https://codelabs.developers.google.com/codelabs/constraint-layout/index.html#0</a></p>
+<p>Note: as mentioned, we'll be using either RelativeLayout or LinearLayout for CST8227.</p>
+</body>
+</html>

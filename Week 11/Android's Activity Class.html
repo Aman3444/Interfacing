@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h2>What is an Activity?</h2>
+<p>From the Android API for class Activity:</p>
+<blockquote>
+<p>An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI (user interface) with setContentView(View). While activities are often presented to the user as full-screen windows, they can also be used in other ways: as floating windows (via a theme with windowIsFloating set) or embedded inside of another activity (using ActivityGroup). There are two methods almost all subclasses of Activity will implement:</p>
+<ul>
+<li>onCreateBundle(Bundle) is where you initialize your activity. Most importantly, here you will usually call setContentView(int) with a layout resource defining your UI, and using findViewById(int) to retrieve the widgets in that UI that you need to interact with programmatically.</li>
+<li>onPause( ) is where you deal with the user leaving your activity. Most importantly, any changes made by the user should at this point be committed (usually to the ContentProvider holding the data).</li>
+</ul>
+</blockquote>
+<p>A typical Android application will be composed of several activities. An activity provides a visual interface for user interaction. Each activity typically supports one focused thing a user can do, such as send a text or watching a YouTube video.</p>
+<h3>The Activity Lifecyle</h3>
+<p>Activities (instances of class Activity) in the system are managed as an activity stack. When a new activity is started, it is placed on the stack and becomes the running activity -- the previous activity always remains in the stack, and will not come to the foreground again until the new activity exists.</p>
+<h3>The Four States of an Activity</h3>
+<ol>
+<li>If an activity in the foreground of the screen (at the top of the stack), it is&nbsp;<em>active</em>&nbsp;or&nbsp;<em>running</em>.</li>
+<li>If an activity has lost focus but is still visible (that is, a new non-full-sized or transparent activity has focus on top of your activity), it is&nbsp;<em>paused</em>. A paused activity is completely alive (it maintains all state and member information and remains attached to the window manager), but can be killed by the system in extreme low memory situations.</li>
+<li>If an activity is completely obscured by another activity, it is&nbsp;<em>stopped</em>. It still retains all state and member information, however, it is no longer visible to the user so its window is hidden and it will often be killed by the system when memory is needed elsewhere.</li>
+<li>If an activity is paused or stopped, the system can drop the activity from memory by either asking it to finish, or simply killing its process. When it is displayed again to the user, it must be completely restarted and restored to its previous state.</li>
+</ol>
+<h3>The Activity Lifecyle Methods</h3>
+<p>Android announces activity lifecyle state changes to activity by calling specific activity methods.</p>
+<ul>
+<li>protected void onCreate (Bundle savedInstanceState)</li>
+<li>protected void onStart( )</li>
+<li>protected void onResume( )</li>
+<li>protected void onPause( )</li>
+<li>protected void onRestart( )</li>
+<li>protected void onStop( )</li>
+<li>protected void onDestroy( )</li>
+</ul>
+<h4>onCreate( )</h4>
+<p>Called when activity is first created.</p>
+<p>Sets up initial state:</p>
+<ul>
+<li>call super.onCreate( )</li>
+<li>set the activity's content view</li>
+<li>retrain reference to UI views as necessary</li>
+<li>configure views as necessary</li>
+</ul>
+<h4>onRestart( )</h4>
+<p>Called if the activity has been stopped and is about to be started again.</p>
+<p>Typical actions:</p>
+<ul>
+<li>special processing needed only after having been stopped</li>
+</ul>
+<h4>onStart( )</h4>
+<p>Activity is about to become visible.</p>
+<p>Typical actions:</p>
+<ul>
+<li>start when visible-only behaviors</li>
+<li>loading persistent application state</li>
+</ul>
+<h4>onResume( )</h4>
+<p>Activity is visible and about to start interacting with user.</p>
+<p>Typical actions:</p>
+<ul>
+<li>start foreground-only behaviors</li>
+</ul>
+<h4>onPause( )</h4>
+<p>Focus about to switch to another activity.</p>
+<p>Typical actions:</p>
+<ul>
+<li>shutdown foreground-only behaviours</li>
+<li>save persistent state</li>
+</ul>
+<h4>onStop( )</h4>
+<p>Activity is no longer visible to user. May be restarted later.</p>
+<p>Typical actions:</p>
+<ul>
+<li>cache state</li>
+</ul>
+<p>Note: may not be called if Android kills your application</p>
+<h4>onDestroy( )</h4>
+<p>Activity is about to be destroyed.</p>
+<p>Typical actions:</p>
+<ul>
+<li>release Activity resources</li>
+</ul>
+<p>Note: may not be called if Android kills your application</p>
+<h3>The Activity Lifecyle</h3>
+<p><img src="http://developer.android.com/images/training/basics/basic-lifecycle.png" alt="" width="662" height="295" /></p>
+<h3>Example</h3>
+<p>Clone this example to see the lifecycle states:&nbsp;<a href="https://github.com/hurdleg/ActivityLifecyle.git" target="_blank" rel="noopener">https://github.com/hurdleg/ActivityLifecyle.git</a></p>
+<h3>References</h3>
+<ol>
+<li><a href="http://developer.android.com/reference/android/app/Activity.html" target="_blank" rel="noopener">http://developer.android.com/reference/android/app/Activity.html</a></li>
+<li><a href="http://developer.android.com/training/basics/activity-lifecycle/index.html" target="_blank" rel="noopener">http://developer.android.com/training/basics/activity-lifecycle/index.html</a></li>
+</ol>
+</body>
+</html>

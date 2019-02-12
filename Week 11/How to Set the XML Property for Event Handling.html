@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h3>There are different ways to implement event handling in Android.</h3>
+<p>In this document, we'll learn how to set the XML property of the&nbsp;<strong>Button</strong>&nbsp;to the name of the event handler.</p>
+<h3>Step 1: Set the XML Property of the View</h3>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>&nbsp;(res &gt; layout), select the&nbsp;<strong>Button</strong>&nbsp;from the&nbsp;<em>Component tree</em>.</p>
+<p>Find the&nbsp;<strong>android:onClick</strong>&nbsp;property for the&nbsp;<strong>Button</strong>. You may need to click&nbsp;<em>View all properties</em>&nbsp;of the&nbsp;<strong>Properties</strong>&nbsp;window to see all the properties (there's a lot, eh?)</p>
+<p>Set the&nbsp;<strong>onClick</strong>&nbsp;property to the name of the&nbsp;instance method that will be the event handler:</p>
+<pre>&lt;Button<br />    android:layout_width="wrap_content"<br />    android:layout_height="wrap_content"<br />    android:layout_centerHorizontal="true"<br />    android:layout_centerVertical="true"<br />    android:text="@string/buttonText"<br />    android:textSize="36sp"<br />    android:onClick="handleBigButton"/&gt;</pre>
+<p><strong>Notice</strong>: you only enter the name of the method, and you get to pick the name. The Java convention when naming instance methods is to use camel-case, beginning with a lower-case letter.</p>
+<h3>Step 2: Implement the Event Handler</h3>
+<p>In this step, we'll implement the event in Java code.</p>
+<p>Edit&nbsp;<strong>MainActivity.java</strong>, and implement the instance method&nbsp;<em>handleBigButton</em>:</p>
+<pre>public void handleBigButton(View v) {<br />    // Toast is a light-weight notification<br />    Toast.makeText( this, "The user has clicked Big Button!", Toast.LENGTH_LONG ).show();<br /><br />    // Use Android's Log class to log messages; similar to JavaScript's console.<br />    // To see the log messages, open the Android Monitor window, set to 'Verbose', search<br />    // for 'BigButtonApp', and set 'No Filters.'<br />    Log.i( "BigButtonApp", "Inside method: handleBigButton()" );<br />}</pre>
+<p>You'll need to import the android packages for classes&nbsp;<strong>Log</strong>,&nbsp;<strong>Toast</strong>, and&nbsp;<strong>View</strong>. For example, to import the package for class&nbsp;<strong>Log</strong>, you should see in the editor that&nbsp;Log&nbsp;is in red. Select the word&nbsp;<em>Log</em>, and a red light-bulb should appear. Android Studio is here 2 help....&nbsp;click the light-bulb, and select&nbsp;<em>Import class</em>. Repeat this step for the remaining imports.</p>
+<h3>Code Inspection</h3>
+<p>Notice the signature of the instance method&nbsp;<strong>handleBigButton</strong>:</p>
+<ul>
+<li>access modifier:&nbsp;<strong>public</strong></li>
+<li>return type:&nbsp;<strong>void</strong></li>
+<li>name of instance method:&nbsp;<strong>handleBigButton</strong></li>
+<li>parameter list: one parameter of type&nbsp;<strong>View</strong>; the parameter&nbsp;<strong>v</strong>&nbsp;will be the instance of Big Button at run-time</li>
+</ul>
+<p>The body of the method:</p>
+<ul>
+<li>display a Toast message to the user</li>
+<li>log an information message to say we are inside the handleBigButton instance method</li>
+</ul>
+<h3>Run the App</h3>
+<p>Run&nbsp;<em>Big Button App</em>&nbsp;on the emulator,&nbsp;and click&nbsp;<strong>Big Button</strong>&nbsp;:)</p>
+<p>You should see a Toast message (once per button click), and a log message (once per button click).</p>
+<p><img src="PastedImage_fm70vgusky892prlbiqxvt5uhafizlpi0013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+</body>
+</html>

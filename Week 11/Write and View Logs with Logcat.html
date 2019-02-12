@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h3>Write and View Logs with Logcat</h3>
+<div>
+<p>Android provides a logcat&nbsp;Monitor that's useful to display logging and debugging messages. The local Monitor displays system-level messages, such as when garbage collection occurs, as well as messages that you can add to your app using the Log class. It displays messages in realtime and also keeps a history so you can view older messages [1].</p>
+<h3>logcat Message Format</h3>
+<p>To log a message, call one of class Log's static methods. For example:</p>
+<pre>Log.d( tag, message );</pre>
+<p>Log.d() will log&nbsp;<em>message</em>&nbsp;with a priority of debug.</p>
+<p>The other static methods include (in order of priority, starting with the lowest):</p>
+<pre>Log.v( tag, message ); // verbose (lowest priority)<br /><br />Log.d( tag, message ); // debug<br /><br />Log.i( tag, message ); // info<br /><br />Log.w( tag, message); // warning<br /><br />Log.e( tag, message ); // error<br /><br />Log.a( tag, message ); // assert (highest priority)</pre>
+<p>Verbose messages should never be compiled into an application except during development. Debug logs are compiled in but stripped out at runtime. Error, warning, and info logs are always kept.</p>
+<p>The&nbsp;<em>tag</em>&nbsp;is a user-defined string. For example:</p>
+<pre>Log.d( "hurdleg", "the index is: " + i );</pre>
+<p>As a best practice, declare a&nbsp;<strong>TAG</strong>&nbsp;constant in your class:</p>
+<pre>private static final String TAG = "hurdleg";</pre>
+<p>Java's keyword&nbsp;<strong>static</strong>&nbsp;declares&nbsp;<strong>TAG</strong>&nbsp;to be a class variable, meaning all instance of this&nbsp;class have the same value of&nbsp;<strong>TAG</strong>, "hurdleg" in this example. The keyword&nbsp;<strong>final</strong>&nbsp;means the value is a constant (like&nbsp;<strong>const</strong>&nbsp;in C++), and cannot be changed.</p>
+<p>And then:</p>
+<pre>Log.d( TAG, "the index is: " + i );</pre>
+<p>In this example, I've set the&nbsp;<strong>TAG</strong>&nbsp;to be my username (<em>hurdleg</em>). By convention, most Android developers set the TAG to the (simple) name of the class. For example:</p>
+<pre>public class MainActivity extends Activity {<br />    private static final String TAG = MainActivity.class.getSimpleName();</pre>
+<h3>Viewing Log Messages</h3>
+<p>To view your log messages:</p>
+<ol>
+<li>Launch Android Studio, and open your app's project.</li>
+<li>Run the app on the emulator or a physical device.</li>
+<li>Open&nbsp;the Android Monitor window (View &gt; Tool Windows... &gt; Android Monitor)</li>
+<li>Click the&nbsp;<strong>logcat</strong>&nbsp;tab.</li>
+</ol>
+<p>You should see:</p>
+<p><img src="PastedImage_623i1a8f8c9ctmkgh7be3no86pj2vd600013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<p>To help reduce the amount of log messages, you can set the log level and search for your message's&nbsp;<strong>TAG</strong>.</p>
+<p>In the above screenshot, the log level is set to&nbsp;<em>Verbose</em>, and can be changed to any of the log priorities (Debug, Info, etc.) by clicking the drop-down menu.</p>
+<p>To filter the log message, enter your&nbsp;<em>TAG</em>&nbsp;in the search area. In this example,&nbsp;I'm searching for the tag "BigButtonApp".</p>
+<h3>References</h3>
+<ol>
+<li>Write and View Logs:&nbsp;<a href="https://developer.android.com/studio/debug/am-logcat.html" target="_blank" rel="noopener">https://developer.android.com/studio/debug/am-logcat.html</a></li>
+<li>Class Log:&nbsp;<a href="https://developer.android.com/reference/android/util/Log.html" target="_blank" rel="noopener">https://developer.android.com/reference/android/util/Log.html</a></li>
+</ol>
+</div>
+</body>
+</html>

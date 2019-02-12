@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>How to Convert String to int</div>
+<div>
+<p>As developers, we need to know how to convert between different data types. In this document, we'll learn how to convert a String value to its primitive int value.</p>
+<p>Let's modify&nbsp;<em>Big Button App</em>&nbsp;to ask the User for their age (instead of their name).</p>
+<p><strong>Important Note</strong>: in the real-world, asking the User for their age make for a poor user experience (imho).</p>
+<p>If you really need to know the User's age, a better solution would be to prompt for their date-of-birth (DoB), and calculate their age.</p>
+<p>Let's begin with the presentation tier.</p>
+<h3>The View</h3>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>, and make&nbsp;these&nbsp;changes to the EditText</p>
+<pre>&lt;EditText<br />    android:id="@+id/userAge"<br />    android:layout_width="match_parent"<br />    android:layout_height="wrap_content"<br />    android:layout_alignParentStart="true"<br />    android:layout_alignParentTop="true"<br />    android:layout_marginStart="32dp"<br />    android:layout_marginEnd="32dp"<br />    android:layout_marginTop="32dp"<br />    android:textSize="36sp"<br />    android:hint="@string/userAgeHint"<br />    android:inputType="number" /&gt;</pre>
+<p>Notes:</p>
+<ul>
+<li>externalize the string for android:hint to:&nbsp;<strong>Your Age</strong></li>
+<li>the inputType is set to&nbsp;<strong>number</strong>. Android will pop-up a numeric keyboard for the User to enter their age</li>
+</ul>
+<h3>The Event Handler</h3>
+<p>Edit&nbsp;<strong>MainActivity.java</strong>, and make the following changes:</p>
+<p><strong>//TODO</strong>: Please conduct a code inspection, and read my comments.</p>
+<pre>package com.algonquincollege.hurdleg.bigbuttonapp;<br /><br />import android.os.Bundle;<br />import android.support.v7.app.AppCompatActivity;<br />import android.view.View;<br />import android.widget.Button;<br />import android.widget.EditText;<br />import android.widget.Toast;<br /><br />public class MainActivity extends AppCompatActivity {<br /><br />    // CLASS VARIABLES (by convention, class vars in upper-case)<br />    // Java's keyword static declares MAX_AGE as a class variable.<br />    // All instance of class MainActivity have the same variable for MAX_AGE<br />    // Java's final means the value cannot be changes; like const in C++<br />    public static final int MAX_AGE = 122; // based on Wikipedia<br />    public static final int MIN_AGE = 1;<br /><br />    // TODO: use Android Studio to rename userNameEditText to userAgeEditText<br />    // Select: userNameEditText<br />    // Right-click: Refactor &gt; Rename... (userAgeEditText)<br />    // Rename<br />    // Review / Preview<br />    // Click: Do Refactor<br />    private EditText userAgeEditText;<br /><br />    @Override<br />    protected void onCreate(Bundle savedInstanceState) {<br />        super.onCreate(savedInstanceState);<br />        setContentView(R.layout.activity_main);<br /><br />        // get a reference to the userAgeEditText<br />        userAgeEditText = (EditText) findViewById(R.id.userAge);<br /><br />        // get a reference to bigButton<br />        Button bigButton = (Button) findViewById(R.id.bigButton);<br /><br />        // register an anonymous inner class as the event handler for bigButton<br />        bigButton.setOnClickListener(new View.OnClickListener() {<br />            @Override<br />            public void onClick(View view) {<br />                String userAgeString = userAgeEditText.getText().toString();<br /><br />                // Use parseInt() to convert the string value to its (primitive) int value<br />                // parseInt() is a static method of class Integer<br />                // Class Integer is a Wrapper Class --- the Java class equivalent of int (primitive)<br />                // parseInt() throws a NumberFormatException if the User enters a non-integer<br />                int age = 0;<br />                try {<br />                    age = Integer.parseInt(userAgeString);<br />                } catch (NumberFormatException e) {<br />                    userAgeEditText.setError( "Please Enter Your Age in Years" );<br />                    userAgeEditText.requestFocus();<br />                    return;<br />                }<br /><br />                // At this line: User has entered a valid integer for their age<br />                // Next, apply domain-range check: MIN_AGE &lt;= age &lt;= MAX_AGE<br /><br />                // Validation Rule: min age check<br />                if ( age &lt; MIN_AGE ) {<br />                    userAgeEditText.setError( "Please Enter Your Age &gt; " + MIN_AGE );<br />                    userAgeEditText.requestFocus();<br />                    return;<br />                }<br /><br />                // Validation Rule: max age check<br />                if ( age &gt; MAX_AGE ) {<br />                    userAgeEditText.setError( "Please Enter Your Age &lt;= " + MAX_AGE );<br />                    userAgeEditText.requestFocus();<br />                    return;<br />                }<br /><br />                // personalized greeting to the User<br />                Toast.makeText( getApplicationContext(),<br />                        "You Entered " + age + " Years for Your Age",<br />                        Toast.LENGTH_SHORT).show();<br /><br />                // re-set text field<br />                userAgeEditText.setText( "" );<br />            }<br />        });<br />    } //end onCreate<br /><br />} //end class</pre>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>change package ownership from me to you (1st line)</li>
+<li>open Android Studio's //TODO window: View &gt; Tool Windows &gt; TODO</li>
+</ul>
+<h3>Run the App</h3>
+<p>Run&nbsp;<em>Big Button App</em>&nbsp;on the emulator, enter your&nbsp;age and click&nbsp;<strong>Big Button</strong>&nbsp;:)</p>
+<p>Sample values to enter as your age:</p>
+<ul>
+<li>-1</li>
+<li>0</li>
+<li>1</li>
+<li>122</li>
+<li>123</li>
+<li>0.5</li>
+<li>4.6</li>
+<li>abc</li>
+<li>&lt;leave empty&gt; click&nbsp;<em>Big Button</em></li>
+</ul>
+<p>Can you think of other values to enter? Let me know :)</p>
+<h3>Further Reading</h3>
+<ol>
+<li>Class Integer's parseInt( ) method:&nbsp;<a href="https://developer.android.com/reference/java/lang/Integer.html#parseInt(java.lang.String)" target="_blank" rel="noopener">https://developer.android.com/reference/java/lang/Integer.html#parseInt(java.lang.String)</a></li>
+<li>Java's try statement:&nbsp;<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.20" target="_blank" rel="noopener">https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.20</a></li>
+</ol>
+</div>
+</body>
+</html>

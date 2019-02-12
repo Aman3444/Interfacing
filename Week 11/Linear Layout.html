@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h2>LinearLayout</h2>
+<p><code>LinearLayout</code>&nbsp;is a&nbsp;<code>ViewGroup</code>&nbsp;that aligns all children in a single direction, vertically or horizontally. You specify the layout direction with the&nbsp;<code>android:orientation</code>&nbsp;attribute.</p>
+<p></p>
+<h3><img src="PastedImage_gz7z24j1653dk1z711gx690okp2qtpau0013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></h3>
+<h3>Link to API Documentation</h3>
+<p><a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank" rel="noopener">https://developer.android.com/reference/android/widget/LinearLayout.html</a></p>
+<h3>Demonstration of Linear Layout</h3>
+<p>Go ahead and try Linear Layout for yourself...</p>
+<p>Launch Android Studio, and Start a new Android Studio project.</p>
+<h4>Configure your new project</h4>
+<ul>
+<li>Application Name:&nbsp;<strong>Demo Linear Layout</strong></li>
+<li>Company Domain:&nbsp;<strong><em>yourCollegeUsername</em></strong>.algonquincollege.com</li>
+</ul>
+<h4>Select the form factors your app will run on</h4>
+<ul>
+<li>Select: Phone and Table</li>
+<li>Minimum SDK: API 28: Android 9.0 (Pie)</li>
+</ul>
+<h4>Add an activity to Mobile</h4>
+<ul>
+<li>Select: Empty&nbsp;Activity</li>
+</ul>
+<h4>Customize the Activity</h4>
+<ul>
+<li>Click the Finish button to accept the default settings.</li>
+</ul>
+<p>Open activity_main.xml in the editor, and replace the contents&nbsp;with this gist:</p>
+<p><iframe title="GitHub gist" src="https://www.edu-apps.org/tools/github/github_summary_gist.html#hurdleg/e07b7fbadaf6530ff01e27701f6384d7" width="480" height="150" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen"></iframe></p>
+<p>Do you see what I see?</p>
+<p><img src="PastedImage_8rgaghki8jtvbcnqsub3lwd0ju6jh2jk0013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<p>Now let's change the layout&nbsp;to make the TextViews&nbsp;take-up the entire layout. We can do that by setting the android:layout_weight attribute to a value of 1 for each of the TextViews. A value of 1 means each of the TextViews will have the same weight, or importance, when the layout is inflated.</p>
+<p>Edit activity_main.xml, and replace the contents with this gist:</p>
+<p><iframe title="GitHub gist" src="https://www.edu-apps.org/tools/github/github_summary_gist.html#hurdleg/686f42f0485bda4365aa5c63b3fe4966" width="480" height="150" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen"></iframe></p>
+<p>Do you see what I see?</p>
+<p><img src="PastedImage_akm9fjqeus5j95xx83rro8308ntzhfl20013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+<p>Try setting different weight values. For example, set the weight of textView1 and textView3 to 2, and a value of 1 for textView3.</p>
+</body>
+</html>

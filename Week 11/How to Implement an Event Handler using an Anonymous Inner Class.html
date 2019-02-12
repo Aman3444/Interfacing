@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<p>In this document, we'll learn how to implement the event handler for&nbsp;<em>Big Button</em>&nbsp;by using an anonymous inner class.</p>
+<p>This strategy is very common for Java developers.</p>
+<h3>Step 1: Set the&nbsp;ID Property of&nbsp;Big Button</h3>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>&nbsp;(res &gt; layout), select the&nbsp;<strong>Button</strong>&nbsp;from the&nbsp;<em>Component tree</em>.</p>
+<p>Set&nbsp;the&nbsp;<strong>android:id</strong>&nbsp;property for the&nbsp;<strong>Button</strong>&nbsp;to:&nbsp;<strong>@+id/bigButton</strong></p>
+<pre>&lt;Button<br />    android:id="@+id/bigButton"<br />    android:layout_width="wrap_content"<br />    android:layout_height="wrap_content"<br />    android:layout_centerHorizontal="true"<br />    android:layout_centerVertical="true"<br />    android:text="@string/buttonText"<br />    android:textSize="36sp" /&gt;</pre>
+<p><strong>Notice</strong>: the&nbsp;<strong>onClick</strong>&nbsp;property is not set.</p>
+<h3>Step 2: Implement the Event Handler</h3>
+<p>In this step, we'll implement the event in Java code.</p>
+<p>Edit&nbsp;<strong>MainActivity.java</strong>, and change the&nbsp;<strong>onCreate</strong>&nbsp;instance method to:</p>
+<pre>@Override<br />protected void onCreate(Bundle savedInstanceState) {<br />    super.onCreate(savedInstanceState);<br />    setContentView(R.layout.activity_main);<br /><br />    // reference bigButton by calling findViewById<br />    // requires a cast: (Button)<br />    Button bigButton = (Button) findViewById(R.id.bigButton);<br /><br />    // register an anonymous inner class as the event handler for bigButton<br />    bigButton.setOnClickListener(new View.OnClickListener() {<br />        @Override<br />        public void onClick(View view) {<br />            Toast.makeText( getApplicationContext(), "The user has clicked Big Button!", Toast.LENGTH_LONG ).show();<br /><br />            Log.i( "BigButtonApp", "Inside method: onClick()" );<br />        }<br />    });<br />} //end onCreate</pre>
+<h3>Screencast</h3>
+<p>Please watch as I use Android Studio to help me write the anonymous inner class:</p>
+<p><a href="https://www.youtube.com/watch?v=e70EhWpu-Oo&amp;feature=youtu.be" target="_blank" rel="noopener">https://www.youtube.com/watch?v=e70EhWpu-Oo&amp;feature=youtu.be</a></p>
+<h3>Run the App</h3>
+<p>Run&nbsp;<em>Big Button App</em>&nbsp;on the emulator,&nbsp;and click&nbsp;<strong>Big Button</strong>&nbsp;:)</p>
+<p>You should see a Toast message (once per button click), and a log message (once per button click).</p>
+<p><img src="PastedImage_lk4u0u9tm9gj2dgm69wpzr8xz4n1ksjo0013984108.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+</body>
+</html>

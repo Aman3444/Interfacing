@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>
+<div>Android's EditText View</div>
+<div>
+<p>Let's modify&nbsp;<em>Big Button App</em>&nbsp;so the User can enter their name, click&nbsp;<em>Big Button</em>, and see a friendly greeting.</p>
+<h2>Before You Begin</h2>
+<p>Please read Android's API documentation for class&nbsp;<code>TextView</code></p>
+<p><a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank" rel="noopener">https://developer.android.com/reference/android/widget/EditText.html</a></p>
+<h3>Use Case :: Normal</h3>
+<ol>
+<li>User enters their name into a text field</li>
+<li>User clicks&nbsp;<em>Big Button</em>.</li>
+<li>Display Toast message: Hello &lt;User's name&gt; Welcome to CST8227</li>
+<li>Clear the text field.</li>
+</ol>
+<h3>Validation Rules</h3>
+<ol>
+<li>The User is required to enter their name.</li>
+</ol>
+<h3>Error Conditions</h3>
+<ol>
+<li>If the User's name is empty, alert the User and have them enter their name.</li>
+</ol>
+<h2>Implementation Notes</h2>
+<p>To implement the above requirements, we'll begin with adding a&nbsp;<code>EditText</code>&nbsp;to the layout.&nbsp;Then we'll implement the event handler for&nbsp;<em>Big Button</em>.</p>
+<p>Let's begin with the presentation tier.</p>
+<h3>The View</h3>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>, and add a&nbsp;<code>EditText</code>:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />&lt;RelativeLayout xmlns:android="<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"<br />    android:layout_width="match_parent"<br />    android:layout_height="match_parent"&gt;<br /><br />    &lt;Button<br />        android:id="@+id/bigButton"<br />        android:layout_width="wrap_content"<br />        android:layout_height="wrap_content"<br />        android:layout_centerHorizontal="true"<br />        android:layout_centerVertical="true"<br />        android:text="@string/buttonText"<br />        android:textSize="36sp" /&gt;<br /><br />    &lt;EditText<br />        android:id="@+id/username"<br />        android:layout_width="match_parent"<br />        android:layout_height="wrap_content"<br />        android:layout_alignParentStart="true"<br />        android:layout_alignParentTop="true"<br />        android:layout_marginStart="32dp"<br />        android:layout_marginEnd="32dp"<br />        android:layout_marginTop="32dp"<br />        android:textSize="36sp"<br />        android:hint="@string/usernameHint"<br />        android:inputType="textPersonName" /&gt;<br /><br />&lt;/RelativeLayout&gt;</pre>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li><code>EditText</code>&nbsp;is a text field that you can type into</li>
+<li><code>EditText</code>&nbsp;is a specialized&nbsp;<code>TextView</code>. That is, class&nbsp;<code>EditText</code>&nbsp;extends from class&nbsp;<code>TextView</code>. And class&nbsp;<code>TextView</code>&nbsp;extends from class&nbsp;<code>View</code>. And class&nbsp;<code>View</code>&nbsp;extends from class&nbsp;<code>Object</code></li>
+<li><em>username</em>&nbsp;is aligned relative to the top-edge of its parent, the RelativeLayout, and relative to the start edge of its parent (RL). The start edge is&nbsp;<em>left</em>&nbsp;for left-to-right languages, such as English; it would be&nbsp;<em>right</em>&nbsp;for right-to-left languages, such as Arabic.</li>
+<li>the width of&nbsp;<em>username</em>&nbsp;is&nbsp;<strong>match_parent</strong>. Normally,&nbsp;<em>username</em>&nbsp;would be as wide as the parent (RL). The start (left) and stop (right) margins&nbsp;are set&nbsp;to&nbsp;<strong>32dp</strong></li>
+<li>externalize the string for&nbsp;<code>android:hint</code>&nbsp;to:&nbsp;<strong>Your Name</strong></li>
+</ul>
+<h3>The Event Handler</h3>
+<p>Edit&nbsp;<strong>MainActivity.java</strong>, and make the following changes:</p>
+<p><strong>//TODO</strong>: Please conduct a code inspection, and read my comments.</p>
+<pre>package com.algonquincollege.hurdleg.bigbuttonapp;<br /><br />import android.os.Bundle;<br />import android.support.v7.app.AppCompatActivity;<br />import android.view.View;<br />import android.widget.Button;<br />import android.widget.EditText;<br />import android.widget.Toast;<br /><br />public class MainActivity extends AppCompatActivity {<br /><br />    // userNameEditText is an instance variable<br />    // best practice in Object Oriented: private access modifier for information hiding<br />    private EditText userNameEditText;<br /><br />    @Override<br />    protected void onCreate(Bundle savedInstanceState) {<br />        super.onCreate(savedInstanceState);<br />        setContentView(R.layout.activity_main);<br /><br />        // get a reference to the userNameEditText<br />        userNameEditText = (EditText) findViewById(R.id.username);<br /><br />        // get a reference to bigButton<br />        // bigButton is a local variable; its scope is local to this onCreate() method<br />        Button bigButton = (Button) findViewById(R.id.bigButton);<br /><br />        // register an anonymous inner class as the event handler for bigButton<br />        // Algorithm<br />        // 1. Get the User's name from the userNameEditText<br />        // 2. If the User's name is empty, warn the User &amp; LEAVE<br />        // 3. Greet the User: Hello &lt;username&gt; Welcome to MAD9132<br />        bigButton.setOnClickListener(new View.OnClickListener() {<br />            @Override<br />            public void onClick(View view) {<br />                // Notice: the return type of method getText() is Editable.<br />                //         We want a String<br />                //         Java's class Object --- the root class of Java<br />                //         defines toString()<br />                // getText() :: Accessor (i.e. Get) OO Design Pattern<br />                String username = userNameEditText.getText().toString();<br /><br />                // Validate the username<br />                // Rule: the username cannot be empty<br />                if ( username.isEmpty() ) {<br />                    userNameEditText.setError( "Please Enter Your Name" );<br />                    userNameEditText.requestFocus();<br />                    return;<br />                }<br /><br />                // personalized greeting to the User<br />                Toast.makeText( getApplicationContext(),<br />                        "Hello " + username + " Welcome to CST8227",<br />                        Toast.LENGTH_SHORT).show();<br /><br />                // re-set for next greeting<br />                // setText() :: Mutator (i.e. Set) OO Design Pattern<br />                userNameEditText.setText( "" );<br />            }<br />        });<br />    } //end onCreate<br /><br />} //end class</pre>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>change package ownership from me to you (1st line)</li>
+<li>code equivalent:&nbsp;<code>if ( username.length( ) == 0 ) {</code></li>
+</ul>
+<h3>Run the App</h3>
+<p>Run&nbsp;<em>Big Button App</em>&nbsp;on the emulator, enter your name and click&nbsp;<strong>Big Button</strong>&nbsp;:)</p>
+<p>You should see a personalized Toast message welcoming you to the course.</p>
+<p>For the abnormal use case, clear the text field, and click Big Button.</p>
+<p>What happens? Trace the code to see the implementation details.</p>
+</div>
+</div>
+</body>
+</html>
