@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h1>Hardware</h1>
+<p>1. Continue from Demo #2</p>
+<p>2. Remove the 16 x LEDs</p>
+<p>3. To wire a shift register to a 7-segment display:</p>
+<ol>
+<li>QA &gt; wire &gt; resistor &gt; wire &gt; segment A</li>
+<li>QB &gt; wire &gt; resistor &gt; wire &gt; segment B</li>
+<li>QC &gt; wire &gt; resistor &gt; wire &gt; segment C</li>
+<li>QD &gt; wire &gt; resistor &gt; wire &gt; segment D</li>
+<li>QE &gt; wire &gt; resistor &gt; wire &gt; segment E</li>
+<li>QF &gt; wire &gt; resistor &gt; wire &gt; segment F</li>
+<li>QG &gt; wire &gt; resistor &gt; wire &gt; segment G</li>
+<li>QH &gt; wire &gt; resistor &gt; wire &gt; DP (decimal point)</li>
+</ol>
+<p>Reference: "7 Segment LED Displays Using a Shift Register" in the "External Resources" folder. This resource shows you how to make the circuit for 1 x 7-segment display. Apply what you've learned, and repeat for the second 7-segment display.</p>
+<h1>Software</h1>
+<p>Note: your 7-segment display is a <strong>common anode</strong></p>
+<p>Reference: "7 Segment LED Displays Using a Shift Register" in the "External Resources" folder. NOTICE: homofotis provides an elegant solution for one 7-segment display. Of course you'll remember to change the pin assignments to 14, 15, and 16.</p>
+<h3>PDL</h3>
+<p>loop 0 to 9 for the "tens"</p>
+<p style="padding-left: 30px;">loop 0 to 9 for the "ones"</p>
+<p style="padding-left: 60px;">//TODO see the "7 Segment LED Displays Using a Shift Register" code</p>
+</body>
+</html>

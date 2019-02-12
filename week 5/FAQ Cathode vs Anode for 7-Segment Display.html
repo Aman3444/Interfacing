@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h3>Q: My 7-segment display does not light up :( Is it burnt-out?</h3>
+<p>A: Look at your 7-segment display, and determine whether it is <strong>Common Anode</strong> or <strong>Common Cathode</strong>.</p>
+<p>All of the documentation supporting Lab 4 --- the lab write-up, the lecture notes, and my working protoboard --- requires a common <em>anode</em> 7-segment display.</p>
+<h3>Q: How can I tell if my 7-segment display is common anode or common cathode?</h3>
+<p>A: Take a close look at your component, and look for its part number ---- something written on the side of the component that identifies it. The part number will contain letters and digits. Did you notice a 'C' or 'A' in the part number? That may indicate cathode or anode respectively.</p>
+<p>For the definitive answer: you need to consult the manufacture's data (spec) sheet for your 7-segment display. Apply some google 'foo' and search the web for the component's data sheet.</p>
+<p>What does the manufacturer say? That's your answer :)</p>
+<h3>Q: My 7-segment display is a common cathode. How do I wire it on my protoboard?</h3>
+<p>A: For common cathode: wire pin 3 (xor 8) to <strong>Common Ground</strong> (the 'blue' rail on your protoboard). Note: do not wire *both* 3 AND 8 :(</p>
+<p>And for completeness, for common anode: wire pin 3 (xor 8) to <strong>VCC</strong> (the 'red' rail on your protoboard). Note: do not wire both 3 AND 8</p>
+<p></p>
+<p>Thanks to... Jared, Curtis, Haider, Hasan, and Brandon. Jared was the first student to report an issue with his 7-segment displays (7SD), and Curtis was next. My advice to them: keep trouble-shooting. When I visited with Haidar and Hasan, I noticed the part numbers were different for the 7SD that I handed out. At that time, I didn't know how many were different. Next, I swapped out 7SDs with Brandon. We noticed that none of the 7SDs would work on my working prototype. During our testing, we identified about ~12 "burnt-out (Brandon's term) components. By then, class was over. While it's home-time for you, it's a shift change for me :O My CST82444 class goes from 8pm until 10pm. When I got home, the thought occurred to me: anode vs. cathode. Earlier this morning, Curtis send an email confirming: some 7-segment displays are common cathode, and need to be wired differently (see earlier). As the say in academia: the first to publish wins. Curtis emailed me before I published this FAQ..... so we'll talk :)</p>
+<p>I thank the class for your efforts to keep working on the lab. I know there's frustration at times. That's to be expected ---- that's part of the learning process.</p>
+</body>
+</html>

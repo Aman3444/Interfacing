@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h1>Hardware</h1>
+<p>1. Continue from Demo #1</p>
+<p>2. Make the circuit as shown in "TwoShiftRegisterWiringDiagram". Observe: you've "daisy chained" (or cascaded) two shift registers.</p>
+<p>3. Wire the 2nd shift register. Wire each output to a LED that is protected by a resistor.</p>
+<ol>
+<li>QA &gt; resistor &gt; LED #9</li>
+<li>QB &gt; wire &gt; resistor &gt; LED #10</li>
+<li>QC &gt; wire &gt; resistor &gt; LED #11</li>
+<li>QD &gt; wire &gt; resistor &gt; LED #12</li>
+<li>QE &gt; wire &gt; resistor &gt; LED #13</li>
+<li>QF &gt; wire &gt; resistor &gt; LED #14</li>
+<li>QG &gt; wire &gt; resistor &gt; LED #15</li>
+<li>QH &gt; wire &gt; resistor &gt; LED #16</li>
+</ol>
+<h1>Software PDL</h1>
+<h3>Declarations</h3>
+<ul>
+<li>SER</li>
+<li>LATCH</li>
+<li>CLOCK</li>
+</ul>
+<h3>Setup</h3>
+<ul>
+<li>set the pin mode of SER, LATCH, and CLOCK as output</li>
+<li>initialize SER, LATCH, CLOCK to 0 (digitalWrite())</li>
+</ul>
+<h3>Loop</h3>
+<p>int bitArray[] = {1, 3, 7, 15, 31, 63, 127, 255};</p>
+<p></p>
+<p>//count up first 8-bits</p>
+<p>for i = 0 to 8:</p>
+<p style="padding-left: 30px;">//shift first 8 bits; ends up in the second SR</p>
+<p style="padding-left: 30px;">shift out 0 (mode: MSBFIRST)</p>
+<p style="padding-left: 30px;"></p>
+<p style="padding-left: 30px;">//shift second 8-bits; ends up in the first SR</p>
+<p style="padding-left: 30px;">shift out bitArray[i] (mode: MSBFIRST)</p>
+<p style="padding-left: 30px;">toggle the LATCH (write HIGH, then write LOW)</p>
+<p style="padding-left: 30px;">delay</p>
+<p></p>
+<p>//count up second 8-bits</p>
+<p>for i = 0 to 8:</p>
+<p style="padding-left: 30px;">//shift first 8 bits; ends up in the second SR</p>
+<p style="padding-left: 30px;">shift out bitArray[i] (mode: MSBFIRST)</p>
+<p style="padding-left: 30px;"></p>
+<p style="padding-left: 30px;">//shift second 8-bits; ends up in the first SR</p>
+<p style="padding-left: 30px;">shift out 255 (mode: MSBFIRST)</p>
+<p style="padding-left: 30px;">toggle the LATCH (write HIGH, then write LOW)</p>
+<p style="padding-left: 30px;">delay</p>
+<p></p>
+<p>//count down second 8-bits</p>
+<p>for i = 7 to 0:</p>
+<p style="padding-left: 30px;">//shift first 8 bits; ends up in the second SR</p>
+<p style="padding-left: 30px;">shift out bitArray[i] (mode: MSBFIRST)</p>
+<p style="padding-left: 30px;"></p>
+<p style="padding-left: 30px;">//shift second 8-bits; ends up in the first SR</p>
+<p style="padding-left: 30px;">shift out 255 (mode: MSBFIRST)</p>
+<p style="padding-left: 30px;">toggle the LATCH (write HIGH, then write LOW)</p>
+<p style="padding-left: 30px;">delay</p>
+<p></p>
+<p>//count down first 8-bits</p>
+<p>//TODO :: your turn! Apply what you've learned.</p>
+</body>
+</html>
