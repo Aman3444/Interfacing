@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<div>
+<h1>Android's ImageView</h1>
+<div>
+<p>Would you like to display an image&nbsp;in your Android app?</p>
+<p>Good news... Android includes a widget named&nbsp;<code>ImageView</code>&nbsp;to display images.</p>
+<h2>Before You Begin</h2>
+<p>Please read Android's API documentation for class&nbsp;<code>ImageView</code></p>
+<p><a href="https://developer.android.com/reference/android/widget/ImageView.html" target="_blank" rel="noopener">https://developer.android.com/reference/android/widget/ImageView.html</a></p>
+<h4>How to Use an ImageView</h4>
+<p>Let's create an Android Studio project featuring&nbsp;<code>ImageView</code>.</p>
+<p>Name your project:&nbsp;<strong>Demo ImageView</strong></p>
+<p>On the&nbsp;<em>Customize the Activity</em>&nbsp;screen, un-check Backward Compatibility (AppCompat).</p>
+<h4>Import an Image into Android Studio</h4>
+<p>Next, import your favourite image into Android Studio.&nbsp;<code>ImageView</code>&nbsp;supports popular image formats, including PNG and JPEG.</p>
+<p>The steps:</p>
+<ol>
+<li>Download your favourite image to your Desktop.&nbsp;Copy your image into your operating system's clipboard. On Mac, command-c (control-c on Windows)</li>
+<li>Paste your image into the&nbsp;<strong>drawable</strong>&nbsp;resource folder (<strong>res &gt; drawable</strong>). On Mac, command-v (control-v on Windows)</li>
+</ol>
+<p>&nbsp;</p>
+<h4>The View</h4>
+<p>Edit&nbsp;<strong>activity_main.xml</strong>&nbsp;(<strong>res &gt; layout</strong>), &nbsp;and replace the XML content with:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br />&lt;RelativeLayout<br />    xmlns:android="<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"<br />    android:layout_width="match_parent"<br />    android:layout_height="match_parent"&gt;<br /><br />    &lt;ImageView<br />        android:id="@+id/imageView"<br />        android:layout_width="match_parent"<br />        android:layout_height="match_parent"<br />        android:layout_centerHorizontal="true"<br />        android:layout_centerVertical="true"<br />        android:contentDescription="Duke - the mascot of Java"<br />        android:src="@drawable/Duke_java_maskot" /&gt;<br /><br />&lt;/RelativeLayout&gt;</pre>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>the (default)&nbsp;<strong>ConstraintLayout</strong>&nbsp;was replaced with a&nbsp;<strong>RelativeLayout</strong></li>
+<li>the height &amp; width of the&nbsp;<code>ImageView</code>&nbsp;is set to:&nbsp;<strong>match_parent</strong>. The parent of&nbsp;<code>ImageView</code>&nbsp;is RelativeLayout</li>
+<li>the android:src property is set to:&nbsp;<strong>@drawable/Duke_java_maskot</strong></li>
+<li>the android:contentDescription is set to the literal string:&nbsp;<strong>"Duke - the mascot of Java"</strong>. This string should be externalized.</li>
+</ul>
+<p>&nbsp;</p>
+<h4>Reference Screenshot</h4>
+<p><img src="PastedImage_5t58daz2rjvkok0nqe1zurwo4kejx36l0014293928.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;" /></p>
+</div>
+</div>
+</body>
+</html>

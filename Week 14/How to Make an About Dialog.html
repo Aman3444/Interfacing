@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<h2>Purpose</h2>
+<ul>
+<li>To make an About dialog</li>
+<li>To use DialogFragment</li>
+<li>To use AlertDialog</li>
+</ul>
+<h4>What You will Learn</h4>
+<p>According the Android Developer's guide:</p>
+<blockquote>A dialog is a small window that prompts the user to make a decision or enter additional information. A dialog does not fill the screen and is normally used for modal events that require users to take an action before they can proceed [1].</blockquote>
+<p>In this activity, you will learn to create an&nbsp;About dialog that displays your full name and Algonquin College username.</p>
+<h4>Summary of Steps</h4>
+<ol>
+<li>Create a menu with an About menu item</li>
+<li>Externalized Strings</li>
+<li>Create a new Java class: AboutDialogFragment</li>
+<li>In MainActivity, declare the ABOUT_DIALOG_TAG</li>
+<li>Override MainActivity's&nbsp;onCreateOptionsMenu() to inflate the menu</li>
+<li>Override MainActivity's onOptionsItemSelected() to handle the About menu item</li>
+</ol>
+<h4>Create a Menu Item Resource</h4>
+<p>To create a&nbsp;<strong>res</strong>ource menu item named:&nbsp;<strong>main</strong></p>
+<ol>
+<li>Expand the&nbsp;<strong>res</strong>&nbsp;directory</li>
+<li>Select:&nbsp;<strong>res</strong></li>
+<li><strong>File &gt; New &gt; Android resource file</strong>
+<ol>
+<li>File name: <strong>main</strong></li>
+<li>Resource type: <strong>Menu</strong></li>
+<li>Confirm the Root element is:&nbsp;<strong><em>menu</em></strong></li>
+<li>Source set:&nbsp;<strong>main</strong></li>
+<li>Directory name: <strong>menu</strong></li>
+</ol>
+</li>
+<li>Click:&nbsp;<strong>OK</strong></li>
+</ol>
+<h4>Externalized Strings</h4>
+<p>Create the following&nbsp;externalized string (<strong>res &gt; values &gt; strings.xml</strong>):</p>
+<pre>&lt;string name="action_about"&gt;About&lt;/string&gt;<br />&lt;!-- TODO: replace with your name + userID --&gt;<br />&lt;string name="author" translatable="false"&gt;Gerry Hurdle (hurdleg)&lt;/string&gt;</pre>
+<h4>Add an About Menu Item</h4>
+<p>To add an About menu item, open&nbsp;<strong>res &gt; menu &gt; main.xml</strong>&nbsp;in Android Studio's editor.</p>
+<p>Using either Design pane or Text pane, edit (or add)&nbsp;a&nbsp;<strong>Menu Item</strong>&nbsp;with the following property settings:</p>
+<ul>
+<li>android:id="@+id/action_about"</li>
+<li>android:title="@string/action_about"</li>
+<li>android:icon="@android:drawable/ic_dialog_info"</li>
+<li>app:showAsAction="always"&nbsp;</li>
+</ul>
+<p>Notice the android:icon attribute is set to an Android drawable resource for a dialog info.</p>
+<h4>Create a new Java Class: AboutDialogFragment</h4>
+<p>To create a new Java class:</p>
+<ol>
+<li>Expand&nbsp;<strong>java</strong>&nbsp;until you see the package for&nbsp;<strong>MainActivity.java</strong></li>
+<li>To the same package,&nbsp;<strong>File &gt; New Java Class</strong>
+<ol>
+<li>Name:&nbsp;<strong>AboutDialogFragment</strong></li>
+<li>Kind:&nbsp;<strong>Class</strong></li>
+<li>Superclass:&nbsp;<strong>DialogFragment</strong>&nbsp;(android.app)</li>
+<li>Check:&nbsp;<strong>Show Select Overrides Document</strong></li>
+<li>Click:&nbsp;<strong>OK</strong>
+<ol>
+<li>In the&nbsp;<em>Select Methods to Override/Implement</em>&nbsp;dialog (ha!), select:&nbsp;<strong>onCreateDialog</strong></li>
+<li>Click:&nbsp;<strong>OK</strong></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Class AboutDialog inherits from class DialogFragment. Class DialogFragment is a fragment that displays a dialog window, floating on-top of its activity's window.&nbsp;A Fragment in Android represents &nbsp;a portion of user interface in an Activity. The idea is to combine multiple fragments in a single activity to build a multi-pane UI and reuse a fragment in multiple fragments.</p>
+<p><strong>Notice</strong>: Android Studio generated the JavaDoc comment for the&nbsp;<strong>onCreateDialog()</strong>&nbsp;instance method. Thanks Android Studio!</p>
+<p>Define the onCreateDialog() method:</p>
+<pre>@Override<br />public Dialog onCreateDialog(Bundle savedInstanceState) {<br />    // Use the Builder class for convenient dialog construction<br />    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());<br /><br />    // Decorate our About dialog<br />    builder.setTitle(R.string.action_about)<br />            //TODO replace with your name + userID<br />            .setMessage(R.string.author)<br />            .setCancelable(false)<br />            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {<br />                @Override<br />                public void onClick(DialogInterface dialog, int which) {<br />                    dialog.cancel();<br />                }<br />            });<br /><br />    // Create the AlertDialog object and return it<br />    return builder.create();<br />}</pre>
+<p><strong>Note</strong>: import the missing packages.</p>
+<h4>Code Inspection</h4>
+<p>To make our AboutDialogFragment, instantiate a new AlertDialogBuilder. The Builder constructor takes 1 parameter: the activity to which this AboutDialogFragment will float above.</p>
+<p>Next, use the builder to customize our AboutDialogFragment. Notice the technique of cascading method calls:</p>
+<ul>
+<li>set the title of the dialog</li>
+<li>set the message of the dialog</li>
+<li>User cannot cancel the dialog (i.e. no Cancel button)</li>
+<li>User clicks OK to cancel the dialog
+<ul>
+<li>reference Android system resource for OK</li>
+<li>instantiate an anonymous inner class as the event handler when User click OK: cancel (dismiss) the dialog</li>
+</ul>
+</li>
+<li>return a new instance of our customized Dialog</li>
+</ul>
+<h4>Declare the ABOUT_DIALOG_TAG</h4>
+<p>Open MainActivity.java, and declare a&nbsp;class variable for the About dialog's tag (add the declaration after&nbsp;<strong>extends Activity</strong>(<strong>AppCompatActivity</strong>):</p>
+<pre>    // Just inside your Activity or AppCompatActivity Class declaration<br />    // CLASS VARIABLES (by convention, class vars in upper-case)<br />    private static final String ABOUT_DIALOG_TAG = "About Dialog";</pre>
+<h4>Override onCreateOptionsMenu in class MainActivity</h4>
+<p><strong>Skip</strong>&nbsp;this step if you've already implemented the onCreateOptionsMenu method.</p>
+<p>Open MainActivity.java, and add this instance method to inflate the menu:</p>
+<pre>@Override<br />public boolean onCreateOptionsMenu(Menu menu) {<br />    // Inflate the menu; this adds items to the action bar if it is present.<br />    getMenuInflater().inflate(R.menu.menu_main, menu);<br />    return true;<br />}</pre>
+<p>Inflates the menu, identified by its resource.</p>
+<p>Return boolean true, indicating the menu was inflated.</p>
+<h4>Override onOptionsItemSelected&nbsp;in class MainActivity</h4>
+<p>The event handler for menu items.</p>
+<pre>@Override<br />public boolean onOptionsItemSelected(MenuItem item) {<br />    // Handle action bar item clicks here.<br />    int id = item.getItemId();<br /><br />    if (id == R.id.action_about) {<br />        DialogFragment newFragment = new AboutDialogFragment();<br />        newFragment.show(getFragmentManager(), ABOUT_DIALOG_TAG);<br />        return true;<br />    }<br /><br />    return super.onOptionsItemSelected(item);<br />}</pre>
+<p>Did User click the About menu item?</p>
+<ul>
+<li>Yes - instantiate a new AboutDialogFragment, and show it. Fragments have a life-cycle, just like Activities. The show() instance method takes 2 parameters: a reference to MainActivity's fragmentManager, and the dialog's tag. Use the tag to uniquely identify the AboutDialogFragment. Return true to indicate this menu item was consumed (i.e. handled)</li>
+<li>No - forward this menu item click to the super class for handling. In this example, super refers to&nbsp;Activity (or AppCompatActivity)</li>
+</ul>
+<h4>Test</h4>
+<p>Run your&nbsp;<em>Login Example</em>&nbsp;within the emulator; choose the CST8227 AVD.</p>
+<p>Make your&nbsp;About dialog appear: Action&nbsp;Bar &gt; About</p>
+<h3>References</h3>
+<ol>
+<li>Dialogs&nbsp;<a href="http://developer.android.com/guide/topics/ui/dialogs.html" target="_blank" rel="noopener">http://developer.android.com/guide/topics/ui/dialogs.html</a></li>
+</ol>
+</body>
+</html>
